@@ -1,0 +1,113 @@
+.google-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-size: cover;
+    background-image: url("../images/google-icon.svg");
+}
+
+.menu-item.active,
+.menu-item:hover {
+    .google-icon {
+        background-image: url("../images/google-active-icon.svg");
+    }
+
+    &.google-icon {
+        background-image: url("../images/google-active-icon.svg");
+    }
+}
+
+.connect-google-calendar {
+    .connect-google-calendar-btn {
+        border: 1px solid #263238;
+        display: inline-block;
+        border-radius: 4px;
+        
+        .icon-container {
+            float: left;
+            border-right: 1px solid #263238;
+
+            .google-calendar-icon {
+                background: url("../images/google-calendar-icon.png") no-repeat;
+                float: left;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .title {
+            display: inline-block;
+            padding: 10px;
+            height: 80px;
+
+            span {
+                margin-top: 18px;
+                color: #263238;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.configure-google-calendar {
+    padding: 0;
+
+    .header {
+        padding: 20px;
+        border-bottom: 1px solid #cdcecf;
+
+        .icon-container {
+            float: left;
+
+            .google-calendar-icon {
+                background: url("../images/google-calendar-icon.png") no-repeat;
+                float: left;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .title {
+            display: inline-block;
+            padding: 10px;
+            height: 80px;
+            font-weight: 500;
+
+            span {
+                font-size: 24px;
+                color: #263238;
+                display: inline-block;
+            }
+
+            p {
+                margin: 0;
+                margin-top: 5px;
+                font-size: 14px;
+                color: #546E7A;
+                font-weight: 400;
+            }
+
+            button {
+                padding: 8px 14px;
+                color: #FF4D50;
+                font-size: 18px;
+                font-weight: 500;
+                background: #F7F8F9;
+                border: 1px solid #D4EDFB;
+                border-radius: 2px;
+                margin-top: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .content {
+        padding: 20px;
+
+        .form-group {
+            .control {
+                width: 50%;
+            }
+        }
+    }
+}
