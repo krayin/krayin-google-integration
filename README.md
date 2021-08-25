@@ -17,17 +17,10 @@ It packs in lots of demanding features that allows your business to scale in no 
 
 ### 3. Installation:
 
-* Unzip the respective extension zip and then merge "packages" folder into project root directory.
-* Goto config/app.php file and add following line under 'providers'
+* Go to the root folder of **Krayin** and run the following command
 
-~~~
-Webkul\Google\Providers\GoogleServiceProvider::class
-~~~
-
-* Goto composer.json file and add following line under 'psr-4'
-
-~~~
-"Webkul\\Google\\": "packages/Webkul/Google"
+~~~php
+composer require krayin/krayin-google-integration
 ~~~
 
 * Run these commands below to complete the setup
