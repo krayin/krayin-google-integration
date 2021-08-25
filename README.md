@@ -26,10 +26,6 @@ composer require krayin/krayin-google-integration
 * Run these commands below to complete the setup
 
 ~~~
-composer dump-autoload
-~~~
-
-~~~
 php artisan migrate
 ~~~
 
