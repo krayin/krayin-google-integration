@@ -1,6 +1,6 @@
 ### 1. Introduction:
 
-Kraying Google Integration.
+Krayin Google Integration.
 
 It packs in lots of demanding features that allows your business to scale in no time:
 

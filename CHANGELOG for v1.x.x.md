@@ -1,4 +1,4 @@
-## **v1.0.0 (20th of Augest 2021)** - *First Release*
+## **v1.0.0 (20th of August 2021)** - *First Release*
 
 *  [feature]Admin user can connect to their google account.
 
