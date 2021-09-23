@@ -1,1 +1,1 @@
-<link rel="stylesheet" href="{{ asset('vendor/google/assets/css/admin.css') }}">
+<link rel="stylesheet" href="{{ asset('google/assets/css/admin.css') }}">
