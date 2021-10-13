@@ -18,9 +18,9 @@
         {!! view_render_event('admin.google.header.before') !!}
 
         <div class="page-header">
-            
+
             {{-- {{ Breadcrumbs::render('settings.attributes.create') }} --}}
-            
+
             <div class="page-title">
                 <h1>{{ __('google::app.google') }}</h1>
             </div>
@@ -48,7 +48,7 @@
                         </ul>
                     </div>
 
-                    
+
                         @if ($account)
                             <div class="tabs-content configure-google-calendar">
                                 <div class="header">
@@ -86,7 +86,7 @@
                                             <label class="required">{{ __('google::app.select-calendar') }}</label>
 
                                             <select name="calendar_id" class="control" v-validate="'required'">
-                                                <option></option>
+                                                <option>{{ __('google::app.select') }}</option>
 
                                                 @foreach ($account->calendars as $calendar)
                                                     <option value="{{ $calendar->id }}" @if ($calendar->is_primary) selected @endif>{{ $calendar->name }}</option>
@@ -101,7 +101,7 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-sm btn-primary">
-                                            Save and Sync
+                                            {{ __('google::app.save-sync')}}
                                         </button>
                                     </form>
                                 </div>
