@@ -66,7 +66,7 @@
 
                                             <p>{{ __('google::app.info') }}</p>
 
-                                            <button type="submit">{{ __('google::app.remove') }}</button>
+                                            <button type="submit" onclick="return confirm('{{ __('google::app.confirm-remove') }}')">{{ __('google::app.remove') }}</button>
                                         </div>
                                     </form>
                                 </div>
