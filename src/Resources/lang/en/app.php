@@ -14,5 +14,6 @@ return [
     'select-calendar-info'    => 'Recurring events from your calendar will not be synced to the CRM',
     'sync-success'            => 'Events synced successfully.',
     'destroy-success'         => 'Google account removed successfully.',
-    'save-sync'               => 'Save and Sync'
+    'save-sync'               => 'Save and Sync',
+    'confirm-remove'          => 'Are you sure you want to remove google account ?'
 ];
