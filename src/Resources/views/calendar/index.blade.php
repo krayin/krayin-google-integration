@@ -86,7 +86,7 @@
                                             <label class="required">{{ __('google::app.select-calendar') }}</label>
 
                                             <select name="calendar_id" class="control" v-validate="'required'">
-                                                <option>{{ __('google::app.select') }}</option>
+                                                <option value="">{{ __('google::app.select') }}</option>
 
                                                 @foreach ($account->calendars as $calendar)
                                                     <option value="{{ $calendar->id }}" @if ($calendar->is_primary) selected @endif>{{ $calendar->name }}</option>
