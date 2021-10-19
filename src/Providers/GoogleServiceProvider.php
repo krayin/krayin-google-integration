@@ -15,7 +15,7 @@ class GoogleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        
+
         $this->loadRoutesFrom(__DIR__ . '/../Http/routes.php');
 
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'google');
@@ -29,7 +29,7 @@ class GoogleServiceProvider extends ServiceProvider
         Event::listen('admin.layout.head', function($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('google::layouts.style');
         });
-        
+
         $this->app->register(EventServiceProvider::class);
 
         $this->app->register(ModuleServiceProvider::class);
@@ -68,6 +68,10 @@ class GoogleServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             dirname(__DIR__) . '/Config/menu.php', 'menu.admin'
+        );
+
+        $this->mergeConfigFrom(
+            dirname(__DIR__) . '/Config/acl.php', 'acl'
         );
     }
 }
