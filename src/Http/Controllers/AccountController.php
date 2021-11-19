@@ -70,9 +70,13 @@ class AccountController extends Controller
      */
     public function index()
     {
+        if (! request('route')) {
+            return redirect()->route('admin.google.index', ['route' => 'calendar']);
+        }
+
         $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
-        return view('google::calendar.index', compact('account'));
+        return view('google::' . request('route') . '.index', compact('account'));
     }
 
     /**
@@ -82,54 +86,43 @@ class AccountController extends Controller
      */
     public function store()
     {
-        if (! request()->has('code')) {
-            return redirect($this->google->createAuthUrl());
-        }
+        $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
-        $this->google->authenticate(request()->get('code'));
-        
-        $account = $this->google->service('Oauth2')->userinfo->get();
+        if ($account) {
+            $this->accountRepository->update([
+                'scopes' => array_merge($account->scopes ?? [], [request('route')]),
+            ], $account->id);
 
-        $this->userRepository->find(auth()->user()->id)->accounts()->updateOrCreate(
-            [
-                'google_id' => $account->id,
-            ],
-            [
-                'name'  => $account->email,
-                'token' => $this->google->getAccessToken(),
-            ]
-        );
-    
-        return redirect()->route('admin.google.index');
-    }
-
-    /**
-     * Synchronize
-     * 
-     * @param  integer  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function sync($id)
-    {
-        $account = $this->accountRepository->findOrFail($id);
-
-        $primaryCalendar = null;
-
-        foreach ($account->calendars as $calendar) {
-            if ($calendar->id == request('calendar_id')) {
-                $calendar->update(['is_primary' => 1]);
-
-                $primaryCalendar = $calendar;
-            } else {
-                $calendar->update(['is_primary' => 0]);
+            if (request('route') == 'calendar') {
+                $account->synchronization->ping();
+                $account->synchronization->startListeningForChanges();
             }
+
+            session()->put('route', request('route'));
+        } else {
+            if (! request()->has('code')) {
+                session()->put('route', request('route'));
+
+                return redirect($this->google->createAuthUrl());
+            }
+
+            $this->google->authenticate(request()->get('code'));
+            
+            $account = $this->google->service('Oauth2')->userinfo->get();
+
+            $this->userRepository->find(auth()->user()->id)->accounts()->updateOrCreate(
+                [
+                    'google_id' => $account->id,
+                ],
+                [
+                    'name'   => $account->email,
+                    'token'  => $this->google->getAccessToken(),
+                    'scopes' => [session()->get('route', 'calendar')],
+                ]
+            );
         }
-
-        $primaryCalendar->synchronization->ping();
-
-        session()->flash('success', trans('google::app.sync-success'));
-
-        return redirect()->back();
+    
+        return redirect()->route('admin.google.index', ['route' => session()->get('route', 'calendar')]);
     }
 
     /**
@@ -142,11 +135,23 @@ class AccountController extends Controller
     {
         $account = $this->accountRepository->findOrFail($id);
 
-        $account->calendars->each->delete();
+        if (count($account->scopes) > 1) {
+            $scopes = $account->scopes;
 
-        $this->accountRepository->destroy($id);
+            if (($key = array_search(request('route'), $scopes)) !== false) {
+                unset($scopes[$key]);
+            }
 
-        $this->google->revokeToken($account->token);
+            $this->accountRepository->update([
+                'scopes' => array_values($scopes),
+            ], $account->id);
+        } else {
+            $account->calendars->each->delete();
+
+            $this->accountRepository->destroy($id);
+    
+            $this->google->revokeToken($account->token);
+        }
 
         session()->flash('success', trans('google::app.destroy-success'));
 

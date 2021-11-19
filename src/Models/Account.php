@@ -18,10 +18,12 @@ class Account extends Model implements AccountContract
         'google_id',
         'name',
         'token',
+        'scopes',
     ];
 
     protected $casts = [
-        'token' => 'json',
+        'token'  => 'json',
+        'scopes' => 'json',
     ];
 
     /**

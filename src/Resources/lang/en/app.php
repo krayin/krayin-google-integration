@@ -1,12 +1,16 @@
 <?php
 
 return [
-    'title'                   => 'Calendar',
-    'google'                  => 'Google',
+    'title'                   => 'Google',
+    'calendar'                => 'Calendar',
+    'meet'                    => 'Meet',
     'back'                    => 'Back',
     'connect-google-calendar' => 'Connect Google Calendar',
+    'connect-google-meet'     => 'Connect Google Meet',
     'google-calendar'         => 'Google Calendar',
-    'info'                    => 'Google time-management and scheduling calendar for enhancing work speed.',
+    'google-meet'             => 'Google Meet',
+    'google-calendar-info'    => 'Google time-management and scheduling calendar for enhancing work speed.',
+    'google-meet-info'        => 'Creates meet links directly in the time of activity creation for enhancing work speed.',
     'remove'                  => 'Remove',
     'synced-account'          => 'Synced Account',
     'select'                  => 'Please select',

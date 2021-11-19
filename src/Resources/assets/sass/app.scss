@@ -17,8 +17,24 @@
     }
 }
 
-.connect-google-calendar {
-    .connect-google-calendar-btn {
+.google-calendar-icon {
+    background: url("../images/google-calendar-icon.png") no-repeat;
+    background-size: cover;
+    float: left;
+    width: 80px;
+    height: 80px;
+}
+
+.google-meet-icon {
+    background: url("../images/google-meet-icon.png") no-repeat;
+    background-size: cover;
+    float: left;
+    width: 80px;
+    height: 80px;
+}
+
+.connect-google {
+    .connect-google-btn {
         border: 1px solid #263238;
         display: inline-block;
         border-radius: 4px;
@@ -28,10 +44,7 @@
             border-right: 1px solid #263238;
 
             .google-calendar-icon {
-                background: url("../images/google-calendar-icon.png") no-repeat;
                 float: left;
-                width: 80px;
-                height: 80px;
             }
         }
 
@@ -49,7 +62,7 @@
     }
 }
 
-.configure-google-calendar {
+.configure-google {
     padding: 0;
 
     .header {
@@ -58,13 +71,6 @@
 
         .icon-container {
             float: left;
-
-            .google-calendar-icon {
-                background: url("../images/google-calendar-icon.png") no-repeat;
-                float: left;
-                width: 80px;
-                height: 80px;
-            }
         }
 
         .title {
@@ -108,6 +114,24 @@
             .control {
                 width: 50%;
             }
+        }
+    }
+}
+
+.video-conference {
+    #create-google-meet-link {
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+
+    .join-google-meet-link {
+        .trash-icon {
+            margin-left: 10px;
+            margin-top: 10px;
+            cursor: pointer;
         }
     }
 }

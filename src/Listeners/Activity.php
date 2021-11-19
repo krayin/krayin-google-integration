@@ -72,6 +72,10 @@ class Activity
             'is_primary'        => 1,
         ]);
 
+        if (! $calendar) {
+            return;
+        }
+
         $service = $calendar->getGoogleService('Calendar');
 
         $eventData = [
@@ -130,6 +134,10 @@ class Activity
                 'google_account_id' => $account->id,
                 'is_primary'        => 1,
             ]);
+        }
+
+        if (! $calendar) {
+            return;
         }
 
         $service = $calendar->getGoogleService('Calendar');

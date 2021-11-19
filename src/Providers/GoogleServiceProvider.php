@@ -21,13 +21,21 @@ class GoogleServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'google');
 
         $this->publishes([
-            __DIR__ . '/../../publishable/assets' => public_path('google/assets'),
+            __DIR__ . '/../../publishable/assets' => public_path('vendor/google/assets'),
         ], 'public');
 
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'google');
 
         Event::listen('admin.layout.head', function($viewRenderEventManager) {
             $viewRenderEventManager->addTemplate('google::layouts.style');
+        });
+
+        Event::listen('admin.leads.view.informations.activity_actions.after', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('google::leads.view.activity-action.create');
+        });
+
+        Event::listen('admin.activities.edit.form_controls.after', function($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('google::activities.edit');
         });
         
         $this->app->register(EventServiceProvider::class);

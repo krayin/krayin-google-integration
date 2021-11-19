@@ -10,9 +10,11 @@ Route::group([
 
         Route::get('oauth', 'AccountController@store')->name('admin.google.store');
 
-        Route::post('sync/{id}', 'AccountController@sync')->name('admin.google.sync');
-
         Route::delete('{id}', 'AccountController@destroy')->name('admin.google.destroy');
+
+        Route::post('sync/{id}', 'CalendarController@sync')->name('admin.google.calendar.sync');
+
+        Route::post('create-link', 'MeetController@createLink')->name('admin.google.meet.create_link');
     });
 
     Route::post('webhook', 'WebhookController')->name('admin.google.webhook');

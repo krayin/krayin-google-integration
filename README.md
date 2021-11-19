@@ -8,11 +8,12 @@ It packs in lots of demanding features that allows your business to scale in no 
 * User can fetch all events from selected calendars
 * Support two-way synchronization for events
 * Support real time event synchronization
+* User can create google meet link directly from activity form
 
 
 ### 2. Requirements:
 
-* **Krayin**: v1.0.1 or higher.
+* **Krayin**: v1.2.2 or higher.
 
 
 ### 3. Installation:
