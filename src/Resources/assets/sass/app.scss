@@ -119,7 +119,10 @@
 }
 
 .video-conference {
-    #create-google-meet-link {
+    #create-google-meet-link,
+    #connect-google-account {
+        margin-right: 10px;
+
         .icon {
             width: 20px;
             height: 20px;

@@ -33,7 +33,7 @@ class MeetController extends Controller
      */
     public function createLink()
     {
-        $account = $this->accountRepository->first();
+        $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
         $service = $account->getGoogleService('Calendar');
 
@@ -49,7 +49,7 @@ class MeetController extends Controller
             'primary',
 
             new \Google_Service_Calendar_Event([
-                'summary'        => 'Google Meet Link',
+                'summary'        => request('title'),
 
                 'start'          => [
                     'dateTime' => $start->toAtomString(),
