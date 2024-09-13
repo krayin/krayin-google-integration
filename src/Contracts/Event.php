@@ -2,6 +2,4 @@
 
 namespace Webkul\Google\Contracts;
 
-interface Event
-{
-}
+interface Event {}

@@ -23,7 +23,7 @@ class CreateGoogleCalendarsTable extends Migration
 
             $table->integer('google_account_id')->unsigned();
             $table->foreign('google_account_id')->references('id')->on('google_accounts')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }

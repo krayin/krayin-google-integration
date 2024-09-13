@@ -2,8 +2,8 @@
 
 namespace Webkul\Google\Http\Controllers;
 
-use Webkul\Google\Models\Synchronization;
 use Illuminate\Http\Request;
+use Webkul\Google\Models\Synchronization;
 
 class WebhookController extends Controller
 {

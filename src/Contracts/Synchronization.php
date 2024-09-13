@@ -2,6 +2,4 @@
 
 namespace Webkul\Google\Contracts;
 
-interface Synchronization
-{
-}
+interface Synchronization {}

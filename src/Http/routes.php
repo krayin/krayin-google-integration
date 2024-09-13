@@ -1,10 +1,11 @@
 <?php
+
 Route::group([
     'prefix'     => 'admin/google',
     'namespace'  => 'Webkul\Google\Http\Controllers',
-    'middleware' => ['web']
+    'middleware' => ['web'],
 ], function () {
-    
+
     Route::group(['middleware' => ['user']], function () {
         Route::get('', 'AccountController@index')->name('admin.google.index');
 

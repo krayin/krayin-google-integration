@@ -3,8 +3,8 @@
 namespace Webkul\Google\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Webkul\Google\Contracts\Calendar as CalendarContract;
 use Webkul\Google\Concerns\Synchronizable;
+use Webkul\Google\Contracts\Calendar as CalendarContract;
 use Webkul\Google\Jobs\SynchronizeEvents;
 use Webkul\Google\Jobs\WatchEvents;
 
@@ -13,7 +13,7 @@ class Calendar extends Model implements CalendarContract
     use Synchronizable;
 
     protected $table = 'google_calendars';
-    
+
     protected $fillable = [
         'google_id',
         'name',
@@ -55,7 +55,7 @@ class Calendar extends Model implements CalendarContract
         if (! $this->is_primary) {
             return;
         }
-        
+
         WatchEvents::dispatch($this);
     }
 }

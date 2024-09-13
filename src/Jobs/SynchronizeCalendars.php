@@ -28,7 +28,7 @@ class SynchronizeCalendars extends SynchronizeResource implements ShouldQueue
         if ($googleCalendar->accessRole != 'owner') {
             return;
         }
-        
+
         $this->synchronizable->calendars()->updateOrCreate(
             [
                 'google_id' => $googleCalendar->id,
@@ -39,10 +39,10 @@ class SynchronizeCalendars extends SynchronizeResource implements ShouldQueue
             ]
         );
     }
-    
-    public function dropAllSyncedItems()    
+
+    public function dropAllSyncedItems()
     {
         // Here we use `each->delete()` to make sure model listeners are called.
-        $this->synchronizable->calendars->each->delete();   
+        $this->synchronizable->calendars->each->delete();
     }
 }

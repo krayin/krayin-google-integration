@@ -2,10 +2,10 @@
 
 namespace Webkul\Google\Http\Controllers;
 
-use Webkul\Google\Services\Google;
-use Webkul\User\Repositories\UserRepository;
 use Webkul\Google\Repositories\AccountRepository;
 use Webkul\Google\Repositories\CalendarRepository;
+use Webkul\Google\Services\Google;
+use Webkul\User\Repositories\UserRepository;
 
 class AccountController extends Controller
 {
@@ -40,10 +40,6 @@ class AccountController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param \Webkul\Google\Services\Google  $google
-     * @param \Webkul\User\Repositories\UserRepository  $userRepository
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
-     * @param \Webkul\Google\Repositories\CalendarRepository  $calendarRepository
      *
      * @return void
      */
@@ -52,8 +48,7 @@ class AccountController extends Controller
         UserRepository $userRepository,
         AccountRepository $accountRepository,
         CalendarRepository $calendarRepository
-    )
-    {
+    ) {
         $this->google = $google;
 
         $this->accountRepository = $accountRepository;
@@ -76,7 +71,7 @@ class AccountController extends Controller
 
         $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
-        return view('google::' . request('route') . '.index', compact('account'));
+        return view('google::'.request('route').'.index', compact('account'));
     }
 
     /**
@@ -107,7 +102,7 @@ class AccountController extends Controller
             }
 
             $this->google->authenticate(request()->get('code'));
-            
+
             $account = $this->google->service('Oauth2')->userinfo->get();
 
             $this->userRepository->find(auth()->user()->id)->accounts()->updateOrCreate(
@@ -121,14 +116,14 @@ class AccountController extends Controller
                 ]
             );
         }
-    
+
         return redirect()->route('admin.google.index', ['route' => session()->get('route', 'calendar')]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  integer  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -149,7 +144,7 @@ class AccountController extends Controller
             $account->calendars->each->delete();
 
             $this->accountRepository->destroy($id);
-    
+
             $this->google->revokeToken($account->token);
         }
 

@@ -16,7 +16,6 @@ class CalendarController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
      *
      * @return void
      */
@@ -27,8 +26,8 @@ class CalendarController extends Controller
 
     /**
      * Synchronize
-     * 
-     * @param  integer  $id
+     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function sync($id)

@@ -23,7 +23,7 @@ class Synchronization extends Model implements SynchronizationContract
         'last_synchronized_at' => 'datetime',
         'expired_at'           => 'datetime',
     ];
-    
+
     public function ping()
     {
         return $this->synchronizable->synchronize();
@@ -54,7 +54,7 @@ class Synchronization extends Model implements SynchronizationContract
     {
         $this->stopListeningForChanges();
 
-        // Update the UUID since the previous one has 
+        // Update the UUID since the previous one has
         // already been associated to a Google Channel.
         $this->id = Uuid::uuid4();
         $this->save();
@@ -66,7 +66,7 @@ class Synchronization extends Model implements SynchronizationContract
 
     public function asGoogleChannel()
     {
-        return tap(new \Google_Service_Calendar_Channel(), function ($channel) {
+        return tap(new \Google_Service_Calendar_Channel, function ($channel) {
             $channel->setId($this->id);
             $channel->setResourceId($this->resource_id);
             $channel->setType('web_hook');

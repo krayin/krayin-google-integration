@@ -1,6 +1,9 @@
 <?php
 
 return [
+ 
+
+    // old
     'title'                   => 'Google',
     'calendar'                => 'Calendar',
     'meet'                    => 'Meet',
@@ -19,5 +22,11 @@ return [
     'sync-success'            => 'Events synced successfully.',
     'destroy-success'         => 'Google account removed successfully.',
     'save-sync'               => 'Save and Sync',
-    'confirm-remove'          => 'Are you sure you want to remove google account ?'
+    'confirm-remove'          => 'Are you sure you want to remove google account ?',
+
+    'calendar' => [
+        'index' => [
+            'title' => 'Google Calendar',
+        ]
+    ],
 ];

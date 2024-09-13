@@ -32,9 +32,6 @@ class Activity
     /**
      * Create a new listener instance.
      *
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
-     * @param \Webkul\Google\Repositories\CalendarRepository  $calendarRepository
-     * @param \Webkul\Google\Repositories\EventRepository  $eventRepository
      *
      * @return void
      */
@@ -42,8 +39,7 @@ class Activity
         AccountRepository $accountRepository,
         CalendarRepository $calendarRepository,
         EventRepository $eventRepository
-    )
-    {
+    ) {
         $this->accountRepository = $accountRepository;
 
         $this->calendarRepository = $calendarRepository;
@@ -79,16 +75,16 @@ class Activity
         $service = $calendar->getGoogleService('Calendar');
 
         $eventData = [
-            'summary' => $activity->title,
+            'summary'     => $activity->title,
             'description' => $activity->comment,
-            'start' => array(
+            'start'       => [
                 'dateTime' => $activity->schedule_from->toAtomString(),
                 'timeZone' => $activity->schedule_from->timezone->getName(),
-            ),
-            'end' => array(
+            ],
+            'end' => [
                 'dateTime' => $activity->schedule_to->toAtomString(),
                 'timeZone' => $activity->schedule_from->timezone->getName(),
-            ),
+            ],
         ];
 
         foreach ($activity->participants as $participant) {
@@ -143,16 +139,16 @@ class Activity
         $service = $calendar->getGoogleService('Calendar');
 
         $eventData = [
-            'summary' => $activity->title,
+            'summary'     => $activity->title,
             'description' => $activity->comment,
-            'start' => array(
+            'start'       => [
                 'dateTime' => $activity->schedule_from->toAtomString(),
                 'timeZone' => $activity->schedule_from->timezone->getName(),
-            ),
-            'end' => array(
+            ],
+            'end' => [
                 'dateTime' => $activity->schedule_to->toAtomString(),
                 'timeZone' => $activity->schedule_from->timezone->getName(),
-            ),
+            ],
         ];
 
         foreach ($activity->participants as $participant) {
@@ -178,15 +174,15 @@ class Activity
 
         $this->eventRepository->updateOrCreate([
             'activity_id' => $activity->id,
-            ], [
-                'google_id'          => $googleEvent->id,
-                'google_calendar_id' => $calendar->id,
-            ]
+        ], [
+            'google_id'          => $googleEvent->id,
+            'google_calendar_id' => $calendar->id,
+        ]
         );
     }
 
     /**
-     * @param  integer  $id
+     * @param  int  $id
      * @return void
      */
     public function deleted($id)

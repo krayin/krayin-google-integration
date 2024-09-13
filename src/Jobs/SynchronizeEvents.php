@@ -27,7 +27,7 @@ class SynchronizeEvents extends SynchronizeResource implements ShouldQueue
                 ->where('google_id', $googleEvent->id)
                 ->delete();
         }
-        
+
         if (Carbon::now() > $this->parseDatetime($googleEvent->start)) {
             return;
         }
@@ -52,9 +52,9 @@ class SynchronizeEvents extends SynchronizeResource implements ShouldQueue
         $event->update(['activity_id' => $activity->id]);
     }
 
-    public function dropAllSyncedItems()    
-    {   
-        $this->synchronizable->events()->delete();  
+    public function dropAllSyncedItems()
+    {
+        $this->synchronizable->events()->delete();
     }
 
     protected function isAllDayEvent($googleEvent)

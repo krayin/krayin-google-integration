@@ -17,7 +17,6 @@ class MeetController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
      *
      * @return void
      */
@@ -28,7 +27,7 @@ class MeetController extends Controller
 
     /**
      * Create google meet link
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function createLink()
@@ -67,11 +66,11 @@ class MeetController extends Controller
                             'type' => 'hangoutsMeet',
                         ],
 
-                        'requestId' => 'meet_' . time(),
+                        'requestId' => 'meet_'.time(),
                     ],
                 ],
             ]),
-            
+
             ['conferenceDataVersion' => 1]
         );
 
@@ -79,7 +78,7 @@ class MeetController extends Controller
 
         return response()->json([
             'link'    => $googleEvent->hangoutLink,
-            'comment' => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href="' . $googleEvent->hangoutLink . '" target="_blank">' . $googleEvent->hangoutLink . '</a><br/><br/>──────────'
+            'comment' => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href="'.$googleEvent->hangoutLink.'" target="_blank">'.$googleEvent->hangoutLink.'</a><br/><br/>──────────',
         ]);
     }
 }

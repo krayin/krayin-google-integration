@@ -19,7 +19,7 @@ trait Synchronizable
             optional($synchronizable->synchronization)->delete();
         });
     }
-    
+
     public function synchronization()
     {
         return $this->morphOne(SynchronizationProxy::modelClass(), 'synchronizable');
@@ -31,7 +31,7 @@ trait Synchronizable
             ->connectWithSynchronizable($this)
             ->service($service);
     }
-    
+
     abstract public function synchronize();
 
     abstract public function watch();

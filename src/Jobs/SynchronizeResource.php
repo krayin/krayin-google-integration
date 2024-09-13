@@ -20,7 +20,7 @@ abstract class SynchronizeResource
         $pageToken = null;
 
         $syncToken = $this->synchronization->token;
-        
+
         $service = $this->synchronizable->getGoogleService('Calendar');
 
         do {
@@ -53,8 +53,8 @@ abstract class SynchronizeResource
     }
 
     abstract public function getGoogleRequest($service, $options);
-    
+
     abstract public function syncItem($item);
-    
+
     abstract public function dropAllSyncedItems();
 }

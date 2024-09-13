@@ -7,5 +7,5 @@ return [
         'route'      => 'admin.google.index',
         'sort'       => 2,
         'icon-class' => 'google-icon',
-    ]
+    ],
 ];

@@ -2,8 +2,8 @@
 
 namespace Webkul\Google\Services;
 
-use Webkul\Google\Models\Calendar;
 use Webkul\Google\Models\Account;
+use Webkul\Google\Models\Calendar;
 
 class Google
 {
@@ -19,9 +19,9 @@ class Google
      *
      * @return void
      */
-    function __construct()
+    public function __construct()
     {
-        $client = new \Google_Client();
+        $client = new \Google_Client;
 
         $client->setClientId(config('services.google.client_id'));
         $client->setClientSecret(config('services.google.client_secret'));
@@ -30,7 +30,7 @@ class Google
         $client->setApprovalPrompt(config('services.google.approval_prompt'));
         $client->setAccessType(config('services.google.access_type'));
         $client->setIncludeGrantedScopes(config('services.google.include_granted_scopes'));
-        
+
         $this->client = $client;
     }
 
@@ -66,7 +66,7 @@ class Google
 
         return $this;
     }
-    
+
     /**
      * @param  string  $token
      * @return self
@@ -81,7 +81,7 @@ class Google
     public function connectWithSynchronizable($synchronizable)
     {
         $token = $this->getTokenFromSynchronizable($synchronizable);
-        
+
         return $this->connectUsing($token);
     }
 
@@ -93,9 +93,9 @@ class Google
 
             case $synchronizable instanceof Calendar:
                 return $synchronizable->account->token;
-            
+
             default:
-                throw new \Exception("Invalid Synchronizable");
+                throw new \Exception('Invalid Synchronizable');
         }
     }
 }

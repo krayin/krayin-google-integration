@@ -1,129 +1,85 @@
-@extends('admin::layouts.master')
+<x-admin::layouts>
+    <!-- Title -->
+    <x-slot:title>
+        @lang('google::app.calendar.index.title')
+    </x-slot>
 
-@section('page_title')
-    {{ __('google::app.calendar') }}
-@stop
+    <!-- Body -->
+    <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+            <div class="flex flex-col gap-2">
+                <div class="flex cursor-pointer items-center">
+                    <x-admin::breadcrumbs name="google.calendar.create" />
+                </div>
 
-@push('css')
-    <style>
-        #options > div {
-            padding: 10px;
-            box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-        }
-    </style>
-@endpush
-
-@section('content-wrapper')
-    <div class="content full-page adjacent-center">
-        {!! view_render_event('admin.google.header.before') !!}
-
-        <div class="page-header">
-
-            <div class="page-title">
-                <h1>{{ __('google::app.calendar') }}</h1>
-            </div>
-        </div>
-
-        {!! view_render_event('admin.google.calendar.header.after') !!}
-
-        <div class="page-content">
-            <div class="form-container">
-
-                <div class="panel">
-                    <div class="panel-header">
-                        {!! view_render_event('admin.google.calendar.form_buttons.before') !!}
-
-                        <a href="{{ route('admin.settings.attributes.index') }}">{{ __('google::app.back') }}</a>
-
-                        {!! view_render_event('admin.google.calendar.form_buttons.after') !!}
-                    </div>
-
-                    <div class="tabs">
-                        <ul>
-                            <li class="active">
-                                <a>{{ __('google::app.calendar') }}</a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('admin.google.index', ['route' => 'meet']) }}">{{ __('google::app.meet') }}</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    @if ($account && in_array('calendar', $account->scopes ?? []))
-                        <div class="tabs-content configure-google">
-                            <div class="header">
-                                <form method="POST" action="{{ route('admin.google.destroy', $account->id) }}">
-                                    @csrf()
-
-                                    <input name="_method" type="hidden" value="DELETE">
-
-                                    <input name="route" type="hidden" value="calendar">
-
-                                    <div class="icon-container">
-                                        <span class="google-calendar-icon"></span>
-                                    </div>
-
-                                    <div class="title">
-                                        <span>{{ __('google::app.google-calendar') }}</span>
-
-                                        <p>{{ __('google::app.google-calendar-info') }}</p>
-
-                                        <button type="submit" onclick="return confirm('{{ __('google::app.confirm-remove') }}')">{{ __('google::app.remove') }}</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="content">
-                                <form method="POST" action="{{ route('admin.google.calendar.sync', $account->id) }}" @submit.prevent="onSubmit">
-                                    @csrf()
-
-                                    <div class="form-group">
-                                        <label>{{ __('google::app.synced-account') }}</label>
-
-                                        <input class="control" value="{{ $account->name }}" disabled/>
-                                    </div>
-
-
-                                    <div class="form-group" :class="[errors.has('calendar_id') ? 'has-error' : '']">
-                                        <label class="required">{{ __('google::app.select-calendar') }}</label>
-
-                                        <select name="calendar_id" class="control" v-validate="'required'">
-                                            <option value="">{{ __('google::app.select') }}</option>
-
-                                            @foreach ($account->calendars as $calendar)
-                                                <option value="{{ $calendar->id }}" @if ($calendar->is_primary) selected @endif>{{ $calendar->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        <span class="control-info">{{ __('google::app.select-calendar-info') }}</span>
-
-                                        <span class="control-error" v-if="errors.has('calendar_id')">
-                                            @{{ errors.first('calendar_id') }}
-                                        </span>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-sm btn-primary">
-                                        {{ __('google::app.save-sync')}}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    @else
-                        <div class="tabs-content connect-google">
-                            <a href="{{ route('admin.google.store', ['route' => 'calendar']) }}" class="connect-google-btn">
-                                <div class="icon-container">
-                                    <span class="google-calendar-icon"></span>
-                                </div>
-
-                                <div class="title">
-                                    <span>{{ __('google::app.connect-google-calendar') }}</span>
-                                </div>
-                            </a>
-                        </div>
-                    @endif
+                <div class="text-xl font-bold dark:text-white">
+                    @lang('google::app.calendar.index.title')
                 </div>
             </div>
         </div>
+
+        <v-google-meet-calendar-connector></v-google-meet-calendar-connector>
     </div>
-@stop
+
+    @pushOnce('scripts')
+        <script 
+            type="text/x-template"
+            id="v-google-meet-calendar-connector"
+        >
+            <div class="box-shadow flex flex-col gap-4 rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 max-xl:flex-wrap">
+                <div class="flex gap-2 border-b border-gray-200 dark:border-gray-800">
+                    <!-- Tabs -->
+                    <template v-for="tab in tabs" :key="tab.id">
+                        <div
+                            :class="[
+                                'inline-block px-3 py-2.5 border-b-2  text-sm font-medium cursor-pointer',
+                                activeTab === tab.id
+                                ? 'text-brandColor border-brandColor dark:brandColor dark:brandColor'
+                                : 'text-gray-600 dark:text-gray-300  border-transparent hover:text-gray-800 hover:border-gray-400 dark:hover:border-gray-400  dark:hover:text-white'
+                            ]"
+                            @click="scrollToSection(tab.id)"
+                        >
+                            @{{ tab.label }}
+                        </div>
+                    </template>
+                </div>
+
+                <div class="animate-[on-fade_0.5s_ease-in-out] p-4">
+                    <div class="flex flex-col gap-4">
+                        
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script type="module">
+            app.component('v-google-meet-calendar-connector', {
+                template: '#v-google-meet-calendar-connector',
+
+                data() {
+                    return {
+                        tabs: [
+                            {
+                                id: 'google-meet',
+                                label: 'Google Meet'
+                            },
+                            {
+                                id: 'calendar',
+                                label: 'Calendar'
+                            }
+                        ],
+
+                        activeTab: 'google-meet'
+                    }
+                },
+
+                methods: {
+                    scrollToSection(id) {
+                        this.activeTab = id;
+                    },
+                },
+            })
+        </script>
+
+    @endPushOnce
+</x-admin::layouts>
