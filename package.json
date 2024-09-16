@@ -14,8 +14,6 @@
     "vue": "^3.4.19"
   },
   "dependencies": {
-    "@vee-validate/i18n": "^4.9.1",
-    "@vee-validate/rules": "^4.9.1",
     "@vitejs/plugin-vue": "^4.2.3"
   }
 }
