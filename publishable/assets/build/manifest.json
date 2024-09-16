@@ -1,8 +1,12 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-321a3eb1.css",
+    "file": "assets/app-0d3ab032.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
+  },
+  "src/Resources/assets/fonts/icomoon.woff": {
+    "file": "assets/icomoon-f9134904.woff",
+    "src": "src/Resources/assets/fonts/icomoon.woff"
   },
   "src/Resources/assets/images/google-calendar-icon.png": {
     "file": "assets/google-calendar-icon-058ce74e.png",
