@@ -2,6 +2,7 @@
 
 namespace Webkul\Google\Models;
 
+use Webkul\Activity\Models\Activity;
 use Webkul\User\Models\User as BaseUser;
 
 class User extends BaseUser

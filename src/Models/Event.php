@@ -8,16 +8,36 @@ use Webkul\Google\Contracts\Event as EventContract;
 
 class Event extends Model implements EventContract
 {
+    /**
+     * Timestamps disabled.
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
+    /**
+     * Define the table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'google_events';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'google_id',
         'google_calendar_id',
         'activity_id',
     ];
 
+    /**
+     * The attributes that should be cast.
+     * 
+     * @var array
+     */
     protected $with = ['calendar'];
 
     /**

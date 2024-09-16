@@ -6,11 +6,23 @@ abstract class WatchResource
 {
     protected $synchronizable;
 
+    /**
+     * Create a new job instance.
+     *
+     * @param mixed $synchronizable
+     * 
+     * @return void
+     */
     public function __construct($synchronizable)
     {
         $this->synchronizable = $synchronizable;
     }
 
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
     public function handle()
     {
         $synchronization = $this->synchronizable->synchronization;
@@ -32,5 +44,12 @@ abstract class WatchResource
         }
     }
 
+    /**
+     * Get the google request.
+     *
+     * @param mixed $service
+     * @param mixed $channel
+     * @return mixed
+     */
     abstract public function getGoogleRequest($service, $channel);
 }

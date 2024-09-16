@@ -1,0 +1,16 @@
+@tailwind components;
+  
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.woff?w2trdd') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+  
+  
+@layer components {
+    .icon-google:before {
+        content: "\e900";
+    }
+}

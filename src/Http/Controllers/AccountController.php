@@ -2,41 +2,15 @@
 
 namespace Webkul\Google\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Webkul\Google\Repositories\AccountRepository;
 use Webkul\Google\Repositories\CalendarRepository;
 use Webkul\Google\Services\Google;
 use Webkul\User\Repositories\UserRepository;
+use Illuminate\View\View;
 
 class AccountController extends Controller
 {
-    /**
-     * Google object
-     *
-     * @var \Webkul\Google\Services\Google
-     */
-    protected $google;
-
-    /**
-     * UserRepository object
-     *
-     * @var \Webkul\Repositories\Services\UserRepository
-     */
-    protected $userRepository;
-
-    /**
-     * AccountRepository object
-     *
-     * @var \Webkul\Repositories\Services\AccountRepository
-     */
-    protected $accountRepository;
-
-    /**
-     * CalendarRepository object
-     *
-     * @var \Webkul\Repositories\Services\CalendarRepository
-     */
-    protected $calendarRepository;
-
     /**
      * Create a new controller instance.
      *
@@ -44,26 +18,16 @@ class AccountController extends Controller
      * @return void
      */
     public function __construct(
-        Google $google,
-        UserRepository $userRepository,
-        AccountRepository $accountRepository,
-        CalendarRepository $calendarRepository
-    ) {
-        $this->google = $google;
-
-        $this->accountRepository = $accountRepository;
-
-        $this->userRepository = $userRepository;
-
-        $this->calendarRepository = $calendarRepository;
-    }
+        protected Google $google,
+        protected UserRepository $userRepository,
+        protected AccountRepository $accountRepository,
+        protected CalendarRepository $calendarRepository
+    ) {}
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View|RedirectResponse
     {
         if (! request('route')) {
             return redirect()->route('admin.google.index', ['route' => 'calendar']);
@@ -76,10 +40,8 @@ class AccountController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(): RedirectResponse
     {
         $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
@@ -122,11 +84,8 @@ class AccountController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $account = $this->accountRepository->findOrFail($id);
 
@@ -148,7 +107,7 @@ class AccountController extends Controller
             $this->google->revokeToken($account->token);
         }
 
-        session()->flash('success', trans('google::app.destroy-success'));
+        session()->flash('success', trans('google::app.account-deleted'));
 
         return redirect()->back();
     }

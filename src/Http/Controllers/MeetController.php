@@ -3,26 +3,19 @@
 namespace Webkul\Google\Http\Controllers;
 
 use Carbon\Carbon;
+use Google_Service;
 use Webkul\Google\Repositories\AccountRepository;
 
 class MeetController extends Controller
 {
-    /**
-     * AccountRepository object
-     *
-     * @var \Webkul\Repositories\Services\AccountRepository
-     */
-    protected $accountRepository;
-
     /**
      * Create a new controller instance.
      *
      *
      * @return void
      */
-    public function __construct(AccountRepository $accountRepository)
+    public function __construct(protected AccountRepository $accountRepository)
     {
-        $this->accountRepository = $accountRepository;
     }
 
     /**
@@ -78,7 +71,7 @@ class MeetController extends Controller
 
         return response()->json([
             'link'    => $googleEvent->hangoutLink,
-            'comment' => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href="'.$googleEvent->hangoutLink.'" target="_blank">'.$googleEvent->hangoutLink.'</a><br/><br/>──────────',
+            'comment' => trans('google::app.meet.index.link-shared', ['link' => $googleEvent->hangoutLink]),
         ]);
     }
 }

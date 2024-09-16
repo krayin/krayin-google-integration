@@ -13,6 +13,11 @@ class RefreshWebhookSynchronizations implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * Handle the job.
+     * 
+     * @return void
+     */
     public function handle()
     {
         Synchronization::query()

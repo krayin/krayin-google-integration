@@ -12,6 +12,13 @@ class WatchEvents extends WatchResource implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * Get the google request.
+     *
+     * @param mixed $service
+     * @param mixed $channel
+     * @return void
+     */
     public function getGoogleRequest($service, $channel)
     {
         return $service->events->watch(

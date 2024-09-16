@@ -12,6 +12,13 @@ class WatchCalendars extends WatchResource implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The synchronizable instance.
+     *
+     * @param mixed $service
+     * @param mixed $channel
+     * @return mixed
+     */
     public function getGoogleRequest($service, $channel)
     {
         return $service->calendarList->watch($channel);

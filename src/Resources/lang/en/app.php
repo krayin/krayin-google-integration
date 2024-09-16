@@ -1,32 +1,44 @@
 <?php
 
 return [
- 
+    'title' => 'Google',
+    'account-deleted' => 'Account removed successfully.',
+    'account-synced'  => 'account synced successfully.',
 
-    // old
-    'title'                   => 'Google',
-    'calendar'                => 'Calendar',
-    'meet'                    => 'Meet',
-    'back'                    => 'Back',
-    'connect-google-calendar' => 'Connect Google Calendar',
-    'connect-google-meet'     => 'Connect Google Meet',
-    'google-calendar'         => 'Google Calendar',
-    'google-meet'             => 'Google Meet',
-    'google-calendar-info'    => 'Google time-management and scheduling calendar for enhancing work speed.',
-    'google-meet-info'        => 'Creates meet links directly in the time of activity creation for enhancing work speed.',
-    'remove'                  => 'Remove',
-    'synced-account'          => 'Synced Account',
-    'select'                  => 'Please select',
-    'select-calendar'         => 'Select the calendar you want to sync',
-    'select-calendar-info'    => 'Recurring events from your calendar will not be synced to the CRM',
-    'sync-success'            => 'Events synced successfully.',
-    'destroy-success'         => 'Google account removed successfully.',
-    'save-sync'               => 'Save and Sync',
-    'confirm-remove'          => 'Are you sure you want to remove google account ?',
+    'activity' => [
+        'google-meet'         => 'Google Meet',
+        'connect-google-meet' => 'Connect Google Meet',
+        'join-google-meet'    => 'Join Google Meet',
+        'remove-google-meet'  => 'Remove Google Meet',
+    ],
 
     'calendar' => [
         'index' => [
-            'title' => 'Google Calendar',
+            'title'           => 'Google Calendar',
+            'info'            => 'Google time management and scheduling calendar for enhancing work speed',
+            'remove'          => 'Remove',
+            'synced-account'  => 'Synced Account',
+            'select-calendar' => 'Select the calendar you want to sync',
+            'save-and-sync'   => 'Save and Sync',
+            'connect'         => 'Connect Google Calendar',
         ]
+    ],
+
+    'meet' => [
+        'index' => [
+            'link-shared'     => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'title'           => 'Google Meet',
+            'info'            => 'Google time management and scheduling meet for enhancing work speed',
+            'remove'          => 'Remove',
+            'synced-account'  => 'Synced Account',
+            'select-meet'     => 'Select the meet you want to sync',
+            'save-and-sync'   => 'Save and Sync',
+            'connect'         => 'Connect Google Meet',
+        ]
+    ],
+    
+    'tabs' => [
+        'calendar' => 'Google Calendar',
+        'meet'     => 'Google Meet',
     ],
 ];

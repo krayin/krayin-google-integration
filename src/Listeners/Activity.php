@@ -2,6 +2,7 @@
 
 namespace Webkul\Google\Listeners;
 
+use Webkul\Activity\Contracts\Activity as ActivityContract;
 use Webkul\Google\Repositories\AccountRepository;
 use Webkul\Google\Repositories\CalendarRepository;
 use Webkul\Google\Repositories\EventRepository;
@@ -9,49 +10,23 @@ use Webkul\Google\Repositories\EventRepository;
 class Activity
 {
     /**
-     * AccountRepository object
-     *
-     * @var \Webkul\Google\Repositories\AccountRepository
-     */
-    protected $accountRepository;
-
-    /**
-     * CalendarRepository object
-     *
-     * @var \Webkul\Google\Repositories\CalendarRepository
-     */
-    protected $calendarRepository;
-
-    /**
-     * EventRepository object
-     *
-     * @var \Webkul\Google\Repositories\EventRepository
-     */
-    protected $eventRepository;
-
-    /**
      * Create a new listener instance.
-     *
      *
      * @return void
      */
     public function __construct(
-        AccountRepository $accountRepository,
-        CalendarRepository $calendarRepository,
-        EventRepository $eventRepository
+        protected AccountRepository $accountRepository,
+        protected CalendarRepository $calendarRepository,
+        protected EventRepository $eventRepository
     ) {
-        $this->accountRepository = $accountRepository;
-
-        $this->calendarRepository = $calendarRepository;
-
-        $this->eventRepository = $eventRepository;
     }
 
     /**
-     * @param  \Webkul\Google\Models\Activity  $activity
+     * Handle the created event.
+     * 
      * @return void
      */
-    public function created($activity)
+    public function created(ActivityContract $activity)
     {
         if (! in_array($activity->type, ['call', 'meeting', 'lunch'])) {
             return;
@@ -108,10 +83,11 @@ class Activity
     }
 
     /**
-     * @param  \Webkul\Google\Models\Activity  $activity
+     * Handle the updated event.
+     * 
      * @return void
      */
-    public function updated($activity)
+    public function updated(ActivityContract $activity)
     {
         if (! in_array($activity->type, ['call', 'meeting', 'lunch'])) {
             return;
@@ -159,7 +135,7 @@ class Activity
             }
         }
 
-        if ($event->google_id) {
+        if ($event?->google_id) {
             $googleEvent = $service->events->update(
                 $calendar->google_id,
                 $event->google_id,
@@ -182,10 +158,11 @@ class Activity
     }
 
     /**
-     * @param  int  $id
+     * Handle the deleted event.
+     * 
      * @return void
      */
-    public function deleted($id)
+    public function deleted(int $id)
     {
         $event = $this->eventRepository->findOneByField('activity_id', $id);
 

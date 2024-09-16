@@ -12,8 +12,18 @@ class Calendar extends Model implements CalendarContract
 {
     use Synchronizable;
 
+    /**
+     * Define the table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'google_calendars';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'google_id',
         'name',
@@ -50,6 +60,9 @@ class Calendar extends Model implements CalendarContract
         SynchronizeEvents::dispatch($this);
     }
 
+    /**
+     * Watch the calendar.
+     */
     public function watch()
     {
         if (! $this->is_primary) {
