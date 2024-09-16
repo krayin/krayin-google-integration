@@ -15,7 +15,7 @@ class PeriodicSynchronizations implements ShouldQueue
 
     /**
      * Handle the job.
-     * 
+     *
      * @return void
      */
     public function handle()

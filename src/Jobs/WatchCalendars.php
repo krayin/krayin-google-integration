@@ -15,8 +15,8 @@ class WatchCalendars extends WatchResource implements ShouldQueue
     /**
      * The synchronizable instance.
      *
-     * @param mixed $service
-     * @param mixed $channel
+     * @param  mixed  $service
+     * @param  mixed  $channel
      * @return mixed
      */
     public function getGoogleRequest($service, $channel)

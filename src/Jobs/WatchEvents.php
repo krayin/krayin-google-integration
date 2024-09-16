@@ -15,8 +15,8 @@ class WatchEvents extends WatchResource implements ShouldQueue
     /**
      * Get the google request.
      *
-     * @param mixed $service
-     * @param mixed $channel
+     * @param  mixed  $service
+     * @param  mixed  $channel
      * @return void
      */
     public function getGoogleRequest($service, $channel)

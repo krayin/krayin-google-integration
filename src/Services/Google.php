@@ -59,7 +59,7 @@ class Google
     /**
      * Connect to Google using the given token.
      */
-    public function connectUsing(string|array $token): self 
+    public function connectUsing(string|array $token): self
     {
         $this->client->setAccessToken($token);
 
@@ -69,7 +69,7 @@ class Google
     /**
      * Create a new Google service instance.
      */
-    public function revokeToken(string|array $token = null): bool
+    public function revokeToken(string|array|null $token = null): bool
     {
         $token = $token ?? $this->client->getAccessToken();
 

@@ -15,7 +15,7 @@ class RefreshWebhookSynchronizations implements ShouldQueue
 
     /**
      * Handle the job.
-     * 
+     *
      * @return void
      */
     public function handle()

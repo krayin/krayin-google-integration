@@ -15,11 +15,10 @@ class Synchronization extends Model implements SynchronizationContract
      */
     protected $table = 'google_synchronizations';
 
-
     /**
      * Default incrementing value false.
      *
-     * @var boolean
+     * @var bool
      */
     public $incrementing = false;
 
@@ -63,7 +62,7 @@ class Synchronization extends Model implements SynchronizationContract
 
     /**
      * Stop Listening for changes.
-     * 
+     *
      * @return void
      */
     public function stopListeningForChanges()

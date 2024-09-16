@@ -71,8 +71,8 @@ abstract class SynchronizeResource
     /**
      * Get the Google request.
      *
-     * @param mixed $service
-     * @param mixed $options
+     * @param  mixed  $service
+     * @param  mixed  $options
      * @return mixed
      */
     abstract public function getGoogleRequest($service, $options);
@@ -80,7 +80,7 @@ abstract class SynchronizeResource
     /**
      * Sync the item.
      *
-     * @param mixed $item
+     * @param  mixed  $item
      * @return mixed
      */
     abstract public function syncItem($item);

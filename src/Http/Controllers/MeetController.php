@@ -3,7 +3,6 @@
 namespace Webkul\Google\Http\Controllers;
 
 use Carbon\Carbon;
-use Google_Service;
 use Webkul\Google\Repositories\AccountRepository;
 
 class MeetController extends Controller
@@ -14,9 +13,7 @@ class MeetController extends Controller
      *
      * @return void
      */
-    public function __construct(protected AccountRepository $accountRepository)
-    {
-    }
+    public function __construct(protected AccountRepository $accountRepository) {}
 
     /**
      * Create google meet link

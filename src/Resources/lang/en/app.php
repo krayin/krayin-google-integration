@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'title' => 'Google',
+    'title'           => 'Google',
     'account-deleted' => 'Account removed successfully.',
-    'account-synced'  => 'account synced successfully.',
+    'account-synced'  => 'Account synced successfully.',
 
     'activity' => [
         'google-meet'         => 'Google Meet',
@@ -21,7 +21,7 @@ return [
             'select-calendar' => 'Select the calendar you want to sync',
             'save-and-sync'   => 'Save and Sync',
             'connect'         => 'Connect Google Calendar',
-        ]
+        ],
     ],
 
     'meet' => [
@@ -34,9 +34,9 @@ return [
             'select-meet'     => 'Select the meet you want to sync',
             'save-and-sync'   => 'Save and Sync',
             'connect'         => 'Connect Google Meet',
-        ]
+        ],
     ],
-    
+
     'tabs' => [
         'calendar' => 'Google Calendar',
         'meet'     => 'Google Meet',

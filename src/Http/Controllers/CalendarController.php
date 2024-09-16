@@ -13,9 +13,7 @@ class CalendarController extends Controller
      *
      * @return void
      */
-    public function __construct(protected AccountRepository $accountRepository)
-    {
-    }
+    public function __construct(protected AccountRepository $accountRepository) {}
 
     /**
      * Synchronize.
@@ -38,7 +36,7 @@ class CalendarController extends Controller
 
         $primaryCalendar?->synchronization->ping();
 
-        session()->flash('success', trans('google::app.sync-success'));
+        session()->flash('success', trans('google::app.account-synced'));
 
         return redirect()->back();
     }

@@ -18,12 +18,11 @@ class Activity
         protected AccountRepository $accountRepository,
         protected CalendarRepository $calendarRepository,
         protected EventRepository $eventRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the created event.
-     * 
+     *
      * @return void
      */
     public function created(ActivityContract $activity)
@@ -84,7 +83,7 @@ class Activity
 
     /**
      * Handle the updated event.
-     * 
+     *
      * @return void
      */
     public function updated(ActivityContract $activity)
@@ -159,7 +158,7 @@ class Activity
 
     /**
      * Handle the deleted event.
-     * 
+     *
      * @return void
      */
     public function deleted(int $id)

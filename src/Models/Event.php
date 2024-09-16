@@ -11,7 +11,7 @@ class Event extends Model implements EventContract
     /**
      * Timestamps disabled.
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = false;
 
@@ -35,7 +35,7 @@ class Event extends Model implements EventContract
 
     /**
      * The attributes that should be cast.
-     * 
+     *
      * @var array
      */
     protected $with = ['calendar'];

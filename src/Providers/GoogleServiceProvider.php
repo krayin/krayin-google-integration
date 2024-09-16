@@ -2,9 +2,9 @@
 
 namespace Webkul\Google\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
 
 class GoogleServiceProvider extends ServiceProvider
 {
@@ -24,9 +24,9 @@ class GoogleServiceProvider extends ServiceProvider
         Blade::anonymousComponentPath(__DIR__.'/../Resources/views/components', 'google');
 
         $this->publishes([
-            __DIR__.'/../../publishable/assets' => public_path('google'),
+            __DIR__.'/../../publishable/assets'                                            => public_path('google'),
             __DIR__.'/../Resources/views/components/activities/actions/activity.blade.php' => __DIR__.'/../../../Admin/src/Resources/views/components/activities/actions/activity.blade.php',
-            __DIR__.'/../Resources/views/activities/edit.blade.php' => __DIR__.'/../../../Admin/src/Resources/views/activities/edit.blade.php',
+            __DIR__.'/../Resources/views/activities/edit.blade.php'                        => __DIR__.'/../../../Admin/src/Resources/views/activities/edit.blade.php',
         ], 'public');
 
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'google');

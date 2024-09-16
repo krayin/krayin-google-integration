@@ -3,11 +3,11 @@
 namespace Webkul\Google\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Webkul\Google\Repositories\AccountRepository;
 use Webkul\Google\Repositories\CalendarRepository;
 use Webkul\Google\Services\Google;
 use Webkul\User\Repositories\UserRepository;
-use Illuminate\View\View;
 
 class AccountController extends Controller
 {
