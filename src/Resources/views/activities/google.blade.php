@@ -15,7 +15,7 @@
         <x-admin::form.control-group>
             <div class="flex">
                 @if ($canCreateMeet)
-                    <template v-if="! meet.hasMeetLink">
+                    <template v-if="! meet.hasMeetLocation">
                         <!-- Create Google Meet -->
                         <button 
                             type="button"
@@ -31,7 +31,7 @@
                             <div class="flex items-center gap-2">
                                 <img 
                                     src="{{ vite()->asset('images/google-meet-icon.png', 'google') }}"
-                                    class="h-4 w-4"
+                                    class="h-5 w-5"
                                 >
                 
                                 <p>@lang('google::app.activity.google-meet')</p>
@@ -43,14 +43,14 @@
                         <!-- Join Google Meet -->
                         <div class="flex items-center gap-2">
                             <a 
-                                :href="meet?.link"
+                                :href="meet?.location"
                                 target="_blank"
                                 class="secondary-button"
                             >
                                 <div class="flex items-center gap-2">
                                     <img 
                                         src="{{ vite()->asset('images/google-meet-icon.png', 'google') }}"
-                                        class="h-4 w-4"
+                                        class="h-5 w-5"
                                     >
                     
                                     <p>@lang('google::app.activity.join-google-meet')</p>
@@ -75,7 +75,7 @@
                         <div class="flex items-center gap-2">
                             <img 
                                 src="{{ vite()->asset('images/google-meet-icon.png', 'google') }}"
-                                class="h-4 w-4"
+                                class="h-5 w-5"
                             >
             
                             <p>@lang('google::app.activity.connect-google-meet')</p>
@@ -99,8 +99,8 @@
                     activity: @json($activity),
 
                     meet: {
-                        hasMeetLink: false,
-                        link: '',
+                        hasMeetLocation: false,
+                        location: '',
                         comment: '',
                     },
                 };
@@ -111,11 +111,11 @@
                     this.activity.location 
                     && this.activity.location.includes('meet.google.com')
                 ) {
-                    this.meet = {
-                        hasMeetLink: true,
-                        link: this.activity.location,
+                    this.setFormValues({
+                        location: this.activity.location,
                         comment: this.activity.comment,
-                    };
+                        hasMeetLocation: true,
+                    });
                 }
             },
 
@@ -123,16 +123,24 @@
                 remove() {
                     this.$emitter.emit('open-confirm-modal', {
                         agree: () => {
-                            this.meet = { 
-                                hasMeetLink: false,
-                                link: '',
-                                comment: ''
-                            };
-
-                            this.setValues({
+                            this.setFormValues({
                                 location: '',
+                                comment: '',
                             });
                         },
+                    });
+                },
+
+                setFormValues({ location, comment, hasMeetLocation = false }) {
+                    this.meet = {
+                        location,
+                        comment,
+                        hasMeetLocation
+                    };
+
+                    this.setValues({
+                        location,
+                        comment,
                     });
                 },
 
@@ -151,17 +159,11 @@
                         },
                     })
                         .then(response => {
-                            this.setValues({
+                            this.setFormValues({
                                 location: response.data.link,
                                 comment: response.data.comment,
+                                hasMeetLocation: true,
                             });
-
-                            this.meet.hasMeetLink = true;
-
-                            this.meet = {
-                                ...this.meet,
-                                ...response.data
-                            };
                         })
                         .catch(error => {
                             this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });

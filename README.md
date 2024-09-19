@@ -35,9 +35,9 @@ php artisan route:cache
 ~~~
 
 ~~~
-php artisan vendor:publish
+php artisan vendor:publish --force
 
--> Press 0 and then press enter to publish all assets and configurations.
+-> Search GoogleServiceProvider navigate to it and then press enter to publish all assets and configurations.
 ~~~
 
 
