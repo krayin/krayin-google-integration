@@ -8,27 +8,16 @@ use Webkul\Google\Repositories\AccountRepository;
 class MeetController extends Controller
 {
     /**
-     * AccountRepository object
-     *
-     * @var \Webkul\Repositories\Services\AccountRepository
-     */
-    protected $accountRepository;
-
-    /**
      * Create a new controller instance.
      *
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
      *
      * @return void
      */
-    public function __construct(AccountRepository $accountRepository)
-    {
-        $this->accountRepository = $accountRepository;
-    }
+    public function __construct(protected AccountRepository $accountRepository) {}
 
     /**
      * Create google meet link
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function createLink()
@@ -67,11 +56,11 @@ class MeetController extends Controller
                             'type' => 'hangoutsMeet',
                         ],
 
-                        'requestId' => 'meet_' . time(),
+                        'requestId' => 'meet_'.time(),
                     ],
                 ],
             ]),
-            
+
             ['conferenceDataVersion' => 1]
         );
 
@@ -79,7 +68,7 @@ class MeetController extends Controller
 
         return response()->json([
             'link'    => $googleEvent->hangoutLink,
-            'comment' => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href="' . $googleEvent->hangoutLink . '" target="_blank">' . $googleEvent->hangoutLink . '</a><br/><br/>──────────'
+            'comment' => trans('google::app.meet.index.link-shared', ['link' => $googleEvent->hangoutLink]),
         ]);
     }
 }

@@ -1,0 +1,24 @@
+{
+  "src/Resources/assets/css/app.css": {
+    "file": "assets/app-0d3ab032.css",
+    "isEntry": true,
+    "src": "src/Resources/assets/css/app.css"
+  },
+  "src/Resources/assets/fonts/icomoon.woff": {
+    "file": "assets/icomoon-f9134904.woff",
+    "src": "src/Resources/assets/fonts/icomoon.woff"
+  },
+  "src/Resources/assets/images/google-calendar-icon.png": {
+    "file": "assets/google-calendar-icon-058ce74e.png",
+    "src": "src/Resources/assets/images/google-calendar-icon.png"
+  },
+  "src/Resources/assets/images/google-meet-icon.png": {
+    "file": "assets/google-meet-icon-9a5427aa.png",
+    "src": "src/Resources/assets/images/google-meet-icon.png"
+  },
+  "src/Resources/assets/js/app.js": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "src/Resources/assets/js/app.js"
+  }
+}

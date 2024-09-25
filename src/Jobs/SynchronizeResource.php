@@ -4,10 +4,21 @@ namespace Webkul\Google\Jobs;
 
 abstract class SynchronizeResource
 {
+    /**
+     * The synchronizable instance.
+     */
     protected $synchronizable;
 
+    /**
+     * The synchronization instance.
+     */
     protected $synchronization;
 
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
     public function __construct($synchronizable)
     {
         $this->synchronizable = $synchronizable;
@@ -15,12 +26,17 @@ abstract class SynchronizeResource
         $this->synchronization = $synchronizable->synchronization;
     }
 
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
     public function handle()
     {
         $pageToken = null;
 
         $syncToken = $this->synchronization->token;
-        
+
         $service = $this->synchronizable->getGoogleService('Calendar');
 
         do {
@@ -52,9 +68,27 @@ abstract class SynchronizeResource
         ]);
     }
 
+    /**
+     * Get the Google request.
+     *
+     * @param  mixed  $service
+     * @param  mixed  $options
+     * @return mixed
+     */
     abstract public function getGoogleRequest($service, $options);
-    
+
+    /**
+     * Sync the item.
+     *
+     * @param  mixed  $item
+     * @return mixed
+     */
     abstract public function syncItem($item);
-    
+
+    /**
+     * Drop all synced items.
+     *
+     * @return mixed
+     */
     abstract public function dropAllSyncedItems();
 }

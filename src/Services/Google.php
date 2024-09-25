@@ -2,8 +2,8 @@
 
 namespace Webkul\Google\Services;
 
-use Webkul\Google\Models\Calendar;
 use Webkul\Google\Models\Account;
+use Webkul\Google\Models\Calendar;
 
 class Google
 {
@@ -19,9 +19,9 @@ class Google
      *
      * @return void
      */
-    function __construct()
+    public function __construct()
     {
-        $client = new \Google_Client();
+        $client = new \Google_Client;
 
         $client->setClientId(config('services.google.client_id'));
         $client->setClientSecret(config('services.google.client_secret'));
@@ -30,14 +30,14 @@ class Google
         $client->setApprovalPrompt(config('services.google.approval_prompt'));
         $client->setAccessType(config('services.google.access_type'));
         $client->setIncludeGrantedScopes(config('services.google.include_granted_scopes'));
-        
+
         $this->client = $client;
     }
 
     /**
-     * @return mixed
+     * Dynamically call methods on the Google client.
      */
-    public function __call($method, $args)
+    public function __call($method, $args): mixed
     {
         if (! method_exists($this->client, $method)) {
             throw new \Exception("Call to undefined method '{$method}'");
@@ -47,9 +47,9 @@ class Google
     }
 
     /**
-     * @return mixed
+     * Create a new Google service instance.
      */
-    public function service($service)
+    public function service($service): mixed
     {
         $className = "Google_Service_$service";
 
@@ -57,35 +57,39 @@ class Google
     }
 
     /**
-     * @param  string  $token
-     * @return self
+     * Connect to Google using the given token.
      */
-    public function connectUsing($token)
+    public function connectUsing(string|array $token): self
     {
         $this->client->setAccessToken($token);
 
         return $this;
     }
-    
+
     /**
-     * @param  string  $token
-     * @return self
+     * Create a new Google service instance.
      */
-    public function revokeToken($token = null)
+    public function revokeToken(string|array|null $token = null): bool
     {
         $token = $token ?? $this->client->getAccessToken();
 
         return $this->client->revokeToken($token);
     }
 
-    public function connectWithSynchronizable($synchronizable)
+    /**
+     * Connect to Google using the given synchronizable.
+     */
+    public function connectWithSynchronizable(mixed $synchronizable): self
     {
         $token = $this->getTokenFromSynchronizable($synchronizable);
-        
+
         return $this->connectUsing($token);
     }
 
-    protected function getTokenFromSynchronizable($synchronizable)
+    /**
+     * Get the token from the given synchronizable.
+     */
+    protected function getTokenFromSynchronizable(mixed $synchronizable): mixed
     {
         switch (true) {
             case $synchronizable instanceof Account:
@@ -93,9 +97,9 @@ class Google
 
             case $synchronizable instanceof Calendar:
                 return $synchronizable->account->token;
-            
+
             default:
-                throw new \Exception("Invalid Synchronizable");
+                throw new \Exception('Invalid Synchronizable');
         }
     }
 }

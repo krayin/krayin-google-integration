@@ -11,7 +11,7 @@ class AccountRepository extends Repository
      *
      * @return mixed
      */
-    function model()
+    public function model()
     {
         return 'Webkul\Google\Contracts\Account';
     }

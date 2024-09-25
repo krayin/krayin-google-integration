@@ -3,8 +3,8 @@
 namespace Webkul\Google\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Webkul\Google\Contracts\Account as AccountContract;
 use Webkul\Google\Concerns\Synchronizable;
+use Webkul\Google\Contracts\Account as AccountContract;
 use Webkul\Google\Jobs\SynchronizeCalendars;
 use Webkul\Google\Jobs\WatchCalendars;
 

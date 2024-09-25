@@ -2,73 +2,32 @@
 
 namespace Webkul\Google\Http\Controllers;
 
-use Webkul\Google\Services\Google;
-use Webkul\User\Repositories\UserRepository;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Webkul\Google\Repositories\AccountRepository;
 use Webkul\Google\Repositories\CalendarRepository;
+use Webkul\Google\Services\Google;
+use Webkul\User\Repositories\UserRepository;
 
 class AccountController extends Controller
 {
     /**
-     * Google object
-     *
-     * @var \Webkul\Google\Services\Google
-     */
-    protected $google;
-
-    /**
-     * UserRepository object
-     *
-     * @var \Webkul\Repositories\Services\UserRepository
-     */
-    protected $userRepository;
-
-    /**
-     * AccountRepository object
-     *
-     * @var \Webkul\Repositories\Services\AccountRepository
-     */
-    protected $accountRepository;
-
-    /**
-     * CalendarRepository object
-     *
-     * @var \Webkul\Repositories\Services\CalendarRepository
-     */
-    protected $calendarRepository;
-
-    /**
      * Create a new controller instance.
      *
-     * @param \Webkul\Google\Services\Google  $google
-     * @param \Webkul\User\Repositories\UserRepository  $userRepository
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
-     * @param \Webkul\Google\Repositories\CalendarRepository  $calendarRepository
      *
      * @return void
      */
     public function __construct(
-        Google $google,
-        UserRepository $userRepository,
-        AccountRepository $accountRepository,
-        CalendarRepository $calendarRepository
-    )
-    {
-        $this->google = $google;
-
-        $this->accountRepository = $accountRepository;
-
-        $this->userRepository = $userRepository;
-
-        $this->calendarRepository = $calendarRepository;
-    }
+        protected Google $google,
+        protected UserRepository $userRepository,
+        protected AccountRepository $accountRepository,
+        protected CalendarRepository $calendarRepository
+    ) {}
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View|RedirectResponse
     {
         if (! request('route')) {
             return redirect()->route('admin.google.index', ['route' => 'calendar']);
@@ -76,15 +35,13 @@ class AccountController extends Controller
 
         $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
-        return view('google::' . request('route') . '.index', compact('account'));
+        return view('google::'.request('route').'.index', compact('account'));
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(): RedirectResponse
     {
         $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
 
@@ -107,7 +64,7 @@ class AccountController extends Controller
             }
 
             $this->google->authenticate(request()->get('code'));
-            
+
             $account = $this->google->service('Oauth2')->userinfo->get();
 
             $this->userRepository->find(auth()->user()->id)->accounts()->updateOrCreate(
@@ -121,17 +78,14 @@ class AccountController extends Controller
                 ]
             );
         }
-    
+
         return redirect()->route('admin.google.index', ['route' => session()->get('route', 'calendar')]);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  integer  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $account = $this->accountRepository->findOrFail($id);
 
@@ -149,11 +103,11 @@ class AccountController extends Controller
             $account->calendars->each->delete();
 
             $this->accountRepository->destroy($id);
-    
+
             $this->google->revokeToken($account->token);
         }
 
-        session()->flash('success', trans('google::app.destroy-success'));
+        session()->flash('success', trans('google::app.account-deleted'));
 
         return redirect()->back();
     }

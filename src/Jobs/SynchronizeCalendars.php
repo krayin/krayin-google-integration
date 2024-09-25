@@ -12,11 +12,17 @@ class SynchronizeCalendars extends SynchronizeResource implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function getGoogleRequest($service, $options)
+    /**
+     * Get the google request.
+     */
+    public function getGoogleRequest(mixed $service, mixed $options): mixed
     {
         return $service->calendarList->listCalendarList($options);
     }
 
+    /**
+     * Get the google request options.
+     */
     public function syncItem($googleCalendar)
     {
         if ($googleCalendar->deleted) {
@@ -28,7 +34,7 @@ class SynchronizeCalendars extends SynchronizeResource implements ShouldQueue
         if ($googleCalendar->accessRole != 'owner') {
             return;
         }
-        
+
         $this->synchronizable->calendars()->updateOrCreate(
             [
                 'google_id' => $googleCalendar->id,
@@ -39,10 +45,12 @@ class SynchronizeCalendars extends SynchronizeResource implements ShouldQueue
             ]
         );
     }
-    
-    public function dropAllSyncedItems()    
+
+    /**
+     * Drop all synced items.
+     */
+    public function dropAllSyncedItems()
     {
-        // Here we use `each->delete()` to make sure model listeners are called.
-        $this->synchronizable->calendars->each->delete();   
+        $this->synchronizable->calendars->each->delete();
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Webkul\Google\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
 
 class GoogleServiceProvider extends ServiceProvider
 {
@@ -14,28 +15,32 @@ class GoogleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
-        $this->loadRoutesFrom(__DIR__ . '/../Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
 
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'google');
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'google');
+
+        Blade::anonymousComponentPath(__DIR__.'/../Resources/views/components', 'google');
 
         $this->publishes([
-            __DIR__ . '/../../publishable/assets' => public_path('vendor/google/assets'),
+            __DIR__.'/../../publishable/assets'                                            => public_path('google'),
+            __DIR__.'/../Resources/views/components/activities/actions/activity.blade.php' => __DIR__.'/../../../Admin/src/Resources/views/components/activities/actions/activity.blade.php',
+            __DIR__.'/../Resources/views/activities/edit.blade.php'                        => __DIR__.'/../../../Admin/src/Resources/views/activities/edit.blade.php',
         ], 'public');
 
-        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'google');
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'google');
 
-        Event::listen('admin.layout.head', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('google::layouts.style');
+        Event::listen('admin.layout.head.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('google::components.layouts.style');
         });
 
-        Event::listen('admin.leads.view.informations.activity_actions.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('google::leads.view.activity-action.create');
+        Event::listen('admin.components.activities.actions.activity.form_controls.modal.content.controls.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('google::leads.view.activities.create');
         });
 
-        Event::listen('admin.activities.edit.form_controls.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('google::activities.edit');
+        Event::listen('admin.activities.edit.form_controls.after', function ($viewRenderEventManager) {
+            $viewRenderEventManager->addTemplate('google::activities.google');
         });
 
         $this->app->register(EventServiceProvider::class);
@@ -75,11 +80,11 @@ class GoogleServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__) . '/Config/menu.php', 'menu.admin'
+            dirname(__DIR__).'/Config/menu.php', 'menu.admin'
         );
 
         $this->mergeConfigFrom(
-            dirname(__DIR__) . '/Config/acl.php', 'acl'
+            dirname(__DIR__).'/Config/acl.php', 'acl'
         );
     }
 }

@@ -13,13 +13,19 @@ class SynchronizeEvents extends SynchronizeResource implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function getGoogleRequest($service, $options)
+    /**
+     * Get the google request.
+     */
+    public function getGoogleRequest(mixed $service, mixed $options): mixed
     {
         return $service->events->listEvents(
             $this->synchronizable->google_id, $options
         );
     }
 
+    /**
+     * Sync Item.
+     */
     public function syncItem($googleEvent)
     {
         if ($googleEvent->status === 'cancelled') {
@@ -27,7 +33,7 @@ class SynchronizeEvents extends SynchronizeResource implements ShouldQueue
                 ->where('google_id', $googleEvent->id)
                 ->delete();
         }
-        
+
         if (Carbon::now() > $this->parseDatetime($googleEvent->start)) {
             return;
         }
@@ -52,16 +58,25 @@ class SynchronizeEvents extends SynchronizeResource implements ShouldQueue
         $event->update(['activity_id' => $activity->id]);
     }
 
-    public function dropAllSyncedItems()    
-    {   
-        $this->synchronizable->events()->delete();  
+    /**
+     * Drop all synced items.
+     */
+    public function dropAllSyncedItems()
+    {
+        $this->synchronizable->events()->delete();
     }
 
+    /**
+     * Check if the event is all day event.
+     */
     protected function isAllDayEvent($googleEvent)
     {
         return ! $googleEvent->start->dateTime && ! $googleEvent->end->dateTime;
     }
 
+    /**
+     * Parse datetime.
+     */
     protected function parseDatetime($googleDatetime)
     {
         $rawDatetime = $googleDatetime->dateTime ?: $googleDatetime->date;

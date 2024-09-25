@@ -1,27 +1,44 @@
 <?php
 
 return [
-    'title'                   => 'متصفح الجوجل',
-    'calendar'                => 'تقويم',
-    'meet'                    => 'يجتمع',
-    'back'                    => 'عودة ',
-    'view'                    => 'رأي',
-    'sync'                    => 'مزامنة',
-    'connect-google-calendar' => 'ربط تقويم جوجل',
-    'connect-google-meet'     => 'قم بتوصيل جوجل ميت',
-    'google-calendar'         => 'تقويم جوجل',
-    'google-meet'             => 'جوجل ميت',
-    'google-calendar-info'    => 'إدارة الوقت من Google وجدولة التقويم لتحسين سرعة العمل.',
-    'google-meet-info'        => 'ينشئ روابط لقاء مباشرة في وقت إنشاء النشاط لتحسين سرعة العمل.',
-    'remove'                  => 'إزالة',
-    'synced-account'          => 'حساب متزامن',
-    'select'                  => 'الرجاء التحديد',
-    'select-calendar'         => 'حدد التقويم الذي تريد مزامنته',
-    'select-calendar-info'    => 'لن تتم مزامنة الأحداث المتكررة من التقويم الخاص بك مع CRM',
-    'sync-success'            => 'تمت مزامنة الأحداث بنجاح.',
-    'destroy-success'         => 'تمت إزالة حساب Google بنجاح.',
-    'save-sync'               => 'حفظ ومزامنة',
-    'confirm-remove'          => 'هل أنت متأكد أنك تريد إزالة حساب جوجل؟'
+    'title'           => 'جوجل',
+    'account-deleted' => 'تم حذف الحساب بنجاح.',
+    'account-synced'  => 'تم مزامنة الحساب بنجاح.',
+
+    'activity' => [
+        'google-meet'         => 'اجتماع جوجل',
+        'connect-google-meet' => 'ربط اجتماع جوجل',
+        'join-google-meet'    => 'الانضمام إلى اجتماع جوجل',
+        'remove-google-meet'  => 'إزالة اجتماع جوجل',
+    ],
+
+    'calendar' => [
+        'index' => [
+            'title'           => 'تقويم جوجل',
+            'info'            => 'تقويم لإدارة الوقت والجدولة من جوجل لزيادة سرعة العمل',
+            'remove'          => 'إزالة',
+            'synced-account'  => 'حساب مزامَن',
+            'select-calendar' => 'اختر التقويم الذي تريد مزامنته',
+            'save-and-sync'   => 'حفظ ومزامنة',
+            'connect'         => 'ربط تقويم جوجل',
+        ],
+    ],
+
+    'meet' => [
+        'index' => [
+            'link-shared'     => '──────────<br/><br/>تم دعوتك للانضمام إلى اجتماع جوجل.<br/><br/>انضم إلى اجتماع جوجل: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'title'           => 'اجتماع جوجل',
+            'info'            => 'اجتماع لإدارة الوقت والجدولة من جوجل لزيادة سرعة العمل',
+            'remove'          => 'إزالة',
+            'synced-account'  => 'حساب مزامَن',
+            'select-meet'     => 'اختر الاجتماع الذي تريد مزامنته',
+            'save-and-sync'   => 'حفظ ومزامنة',
+            'connect'         => 'ربط اجتماع جوجل',
+        ],
+    ],
+
+    'tabs' => [
+        'calendar' => 'تقويم جوجل',
+        'meet'     => 'اجتماع جوجل',
+    ],
 ];
-
-

@@ -2,36 +2,23 @@
 
 namespace Webkul\Google\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Webkul\Google\Repositories\AccountRepository;
 
 class CalendarController extends Controller
 {
     /**
-     * AccountRepository object
-     *
-     * @var \Webkul\Repositories\Services\AccountRepository
-     */
-    protected $accountRepository;
-
-    /**
      * Create a new controller instance.
      *
-     * @param \Webkul\Google\Repositories\AccountRepository  $accountRepository
      *
      * @return void
      */
-    public function __construct(AccountRepository $accountRepository)
-    {
-        $this->accountRepository = $accountRepository;
-    }
+    public function __construct(protected AccountRepository $accountRepository) {}
 
     /**
-     * Synchronize
-     * 
-     * @param  integer  $id
-     * @return \Illuminate\Http\Response
+     * Synchronize.
      */
-    public function sync($id)
+    public function sync(int $id): RedirectResponse
     {
         $account = $this->accountRepository->findOrFail($id);
 
@@ -47,9 +34,9 @@ class CalendarController extends Controller
             }
         }
 
-        $primaryCalendar->synchronization->ping();
+        $primaryCalendar?->synchronization->ping();
 
-        session()->flash('success', trans('google::app.sync-success'));
+        session()->flash('success', trans('google::app.account-synced'));
 
         return redirect()->back();
     }

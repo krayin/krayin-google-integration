@@ -1,3 +1,7 @@
+## **v2.0.0 (25th of September 2024)**
+
+* [compatible] Compatible to krayin v2.0.0.
+
 ## **v1.0.1 (25th of September 2024)**
 
 * #47 [fixed] If the admin is clicking on the google icon then the app locale is getting changes automatically.

@@ -13,8 +13,13 @@ class PeriodicSynchronizations implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * Handle the job.
+     *
+     * @return void
+     */
     public function handle()
-    {   
+    {
         Synchronization::whereNull('resource_id')->get()->each->ping();
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGoogleCalendarsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,7 @@ class CreateGoogleCalendarsTable extends Migration
 
             $table->integer('google_account_id')->unsigned();
             $table->foreign('google_account_id')->references('id')->on('google_accounts')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }
@@ -37,4 +37,4 @@ class CreateGoogleCalendarsTable extends Migration
     {
         Schema::dropIfExists('google_calendars');
     }
-}
+};

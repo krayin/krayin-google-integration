@@ -13,15 +13,15 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'activity.create.after' => [
-            'Webkul\Google\Listeners\Activity@created'
+            'Webkul\Google\Listeners\Activity@created',
         ],
 
         'activity.update.after' => [
-            'Webkul\Google\Listeners\Activity@updated'
+            'Webkul\Google\Listeners\Activity@updated',
         ],
 
         'activity.delete.before' => [
-            'Webkul\Google\Listeners\Activity@deleted'
+            'Webkul\Google\Listeners\Activity@deleted',
         ],
     ];
 }

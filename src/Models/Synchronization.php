@@ -8,10 +8,25 @@ use Webkul\Google\Contracts\Synchronization as SynchronizationContract;
 
 class Synchronization extends Model implements SynchronizationContract
 {
+    /**
+     * Define the table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'google_synchronizations';
 
+    /**
+     * Default incrementing value false.
+     *
+     * @var bool
+     */
     public $incrementing = false;
 
+    /**
+     * Define the fillable property.
+     *
+     * @var array
+     */
     protected $fillable = [
         'token',
         'last_synchronized_at',
@@ -19,21 +34,37 @@ class Synchronization extends Model implements SynchronizationContract
         'expired_at',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'last_synchronized_at' => 'datetime',
         'expired_at'           => 'datetime',
     ];
-    
-    public function ping()
+
+    /**
+     * Get the synchronizable instance.
+     */
+    public function ping(): mixed
     {
         return $this->synchronizable->synchronize();
     }
 
-    public function startListeningForChanges()
+    /**
+     * Start listening for changes.
+     */
+    public function startListeningForChanges(): mixed
     {
         return $this->synchronizable->watch();
     }
 
+    /**
+     * Stop Listening for changes.
+     *
+     * @return void
+     */
     public function stopListeningForChanges()
     {
         if (! $this->resource_id) {
@@ -45,16 +76,24 @@ class Synchronization extends Model implements SynchronizationContract
             ->channels->stop($this->asGoogleChannel());
     }
 
+    /**
+     * Get the synchronizable instance.
+     *
+     * @return void
+     */
     public function synchronizable()
     {
         return $this->morphTo();
     }
 
-    public function refreshWebhook()
+    /**
+     * Refresh webhook.
+     */
+    public function refreshWebhook(): self
     {
         $this->stopListeningForChanges();
 
-        // Update the UUID since the previous one has 
+        // Update the UUID since the previous one has
         // already been associated to a Google Channel.
         $this->id = Uuid::uuid4();
         $this->save();
@@ -64,9 +103,12 @@ class Synchronization extends Model implements SynchronizationContract
         return $this;
     }
 
-    public function asGoogleChannel()
+    /**
+     * Get the Google Channel.
+     */
+    public function asGoogleChannel(): mixed
     {
-        return tap(new \Google_Service_Calendar_Channel(), function ($channel) {
+        return tap(new \Google_Service_Calendar_Channel, function ($channel) {
             $channel->setId($this->id);
             $channel->setResourceId($this->resource_id);
             $channel->setType('web_hook');
@@ -74,18 +116,24 @@ class Synchronization extends Model implements SynchronizationContract
         });
     }
 
-    // Add global model listeners
+    /**
+     * Boot the model.
+     *
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();
 
         static::creating(function ($synchronization) {
             $synchronization->id = Uuid::uuid4();
+
             $synchronization->last_synchronized_at = now();
         });
 
         static::created(function ($synchronization) {
             $synchronization->startListeningForChanges();
+
             $synchronization->ping();
         });
 
