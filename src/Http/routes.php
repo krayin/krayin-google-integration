@@ -1,11 +1,12 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware' => ['web', 'admin_locale']], function () {
-        Route::group([
+    Route::group([
         'prefix'     => 'admin/google',
         'namespace'  => 'Webkul\Google\Http\Controllers',
-        'middleware' => ['web']
     ], function () {
-        
         Route::group(['middleware' => ['user']], function () {
             Route::get('', 'AccountController@index')->name('admin.google.index');
 
@@ -19,6 +20,5 @@ Route::group(['middleware' => ['web', 'admin_locale']], function () {
         });
 
         Route::post('webhook', 'WebhookController')->name('admin.google.webhook');
-
     });
 });
