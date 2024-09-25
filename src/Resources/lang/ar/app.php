@@ -5,6 +5,8 @@ return [
     'calendar'                => 'تقويم',
     'meet'                    => 'يجتمع',
     'back'                    => 'عودة ',
+    'view'                    => 'رأي',
+    'sync'                    => 'مزامنة',
     'connect-google-calendar' => 'ربط تقويم جوجل',
     'connect-google-meet'     => 'قم بتوصيل جوجل ميت',
     'google-calendar'         => 'تقويم جوجل',
