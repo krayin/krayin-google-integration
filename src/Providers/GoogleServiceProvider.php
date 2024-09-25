@@ -17,7 +17,7 @@ class GoogleServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
-        $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
 
         $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'google');
 
