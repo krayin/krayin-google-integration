@@ -5,6 +5,8 @@ return [
     'calendar'                => 'تقویم',
     'meet'                    => 'میت',
     'back'                    => 'بازگشت',
+    'view'                    => 'مشاهده',
+    'sync'                    => 'همگام‌سازی',
     'connect-google-calendar' => 'اتصال تقویم گوگل',
     'connect-google-meet'     => 'اتصال گوگل میت',
     'google-calendar'         => 'تقویم گوگل',

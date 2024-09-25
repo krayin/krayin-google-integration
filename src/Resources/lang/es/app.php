@@ -5,6 +5,8 @@ return [
     'calendar'                => 'Calendario',
     'meet'                    => 'Meet',
     'back'                    => 'Atrás',
+    'view'                    => 'Ver',
+    'sync'                    => 'Sincronizar',
     'connect-google-calendar' => 'Conectar Calendario de Google',
     'connect-google-meet'     => 'Conectar Google Meet',
     'google-calendar'         => 'Calendario de Google',
