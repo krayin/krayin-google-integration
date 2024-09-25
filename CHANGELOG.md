@@ -1,6 +1,12 @@
+## **v1.0.1 (25th of September 2024)** - *First Release*
+
+* #26 [fixed] There is no option to give permission for google calendar. #26
+
+* #47 [fixed] If the admin is clicking on the google icon then the app locale is getting changes automatically. #47
+
 ## **v1.0.0 (19th of November 2021)** - *First Release*
 
-*  [feature] Admin user can connect to their google account.
+* [feature] Admin user can connect to their google account.
 
 * [feature] User can fetch all events from selected calendars
 
