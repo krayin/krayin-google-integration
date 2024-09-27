@@ -1,9 +1,11 @@
 <?php
 
 return [
-    'title'          => 'Google',
-    'account-deleted'=> 'Cuenta eliminada con éxito.',
-    'account-synced' => 'Cuenta sincronizada con éxito.',
+    'title'           => 'Google',
+    'account-deleted' => 'Cuenta eliminada con éxito.',
+    'account-synced'  => 'Cuenta sincronizada con éxito.',
+    'view'            => 'Ver',
+    'sync'            => 'Sincronizar',
 
     'activity'=> [
         'google-meet'        => 'Google Meet',

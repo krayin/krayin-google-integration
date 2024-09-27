@@ -4,6 +4,8 @@ return [
     'title'           => 'جوجل',
     'account-deleted' => 'تم حذف الحساب بنجاح.',
     'account-synced'  => 'تم مزامنة الحساب بنجاح.',
+    'view'            => 'عرض',
+    'sync'            => 'مزامنة',
 
     'activity' => [
         'google-meet'         => 'اجتماع جوجل',

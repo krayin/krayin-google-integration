@@ -4,6 +4,8 @@ return [
     'title'           => 'Google',
     'account-deleted' => 'Hesap başarıyla silindi.',
     'account-synced'  => 'Hesap başarıyla senkronize edildi.',
+    'view'            => 'Görüntüle',
+    'sync'            => 'Senkronize Et',
 
     'activity' => [
         'google-meet'         => 'Google Meet',

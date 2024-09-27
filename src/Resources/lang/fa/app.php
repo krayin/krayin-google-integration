@@ -4,6 +4,8 @@ return [
     'title'           => 'گوگل',
     'account-deleted' => 'حساب با موفقیت حذف شد.',
     'account-synced'  => 'حساب با موفقیت همگام‌سازی شد.',
+    'view'            => 'مشاهده',
+    'sync'            => 'همگام‌سازی',
 
     'activity' => [
         'google-meet'         => 'گوگل میت',
