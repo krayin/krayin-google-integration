@@ -25,8 +25,8 @@ class GoogleServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../../publishable/assets'                                            => public_path('google'),
-            __DIR__.'/../Resources/views/components/activities/actions/activity.blade.php' => __DIR__.'/../../../Admin/src/Resources/views/components/activities/actions/activity.blade.php',
-            __DIR__.'/../Resources/views/activities/edit.blade.php'                        => __DIR__.'/../../../Admin/src/Resources/views/activities/edit.blade.php',
+            __DIR__.'/../Resources/views/components/activities/actions/activity.blade.php' => resource_path('views/vendor/admin/components/activities/actions/activity.blade.php'),
+            __DIR__.'/../Resources/views/activities/edit.blade.php'                        => resource_path('views/vendor/admin/activities/edit.blade.php'),
         ], 'public');
 
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'google');

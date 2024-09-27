@@ -11,11 +11,11 @@ Route::group([
     'middleware' => ['web'],
 ], function () {
     Route::group(['middleware' => ['user']], function () {
-        Route::controller(AccountController::class)->group(function() {
+        Route::controller(AccountController::class)->group(function () {
             Route::get('', 'index')->name('admin.google.index');
-    
+
             Route::get('oauth', 'store')->name('admin.google.store');
-    
+
             Route::delete('{id}', 'destroy')->name('admin.google.destroy');
         });
 

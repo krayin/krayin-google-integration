@@ -4,6 +4,8 @@ return [
     'title'           => 'Google',
     'account-deleted' => 'Account removed successfully.',
     'account-synced'  => 'Account synced successfully.',
+    'view'            => 'View',
+    'sync'            => 'Sync',
 
     'activity' => [
         'google-meet'         => 'Google Meet',
