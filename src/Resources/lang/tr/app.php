@@ -28,7 +28,8 @@ return [
 
     'meet' => [
         'index' => [
-            'link-shared'     => '──────────<br/><br/>Google Meet toplantısına katılmaya davet edildiniz.<br/><br/>Google Meet toplantısına katılın: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'link-shared'       => '──────────<br/><br/>Google Meet toplantısına katılmaya davet edildiniz.<br/><br/>Google Meet toplantısına katılın: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'account-not-found' => 'Bağlı bir Google hesabı bulunamadı.',
             'title'           => 'Google Meet',
             'info'            => 'Çalışma hızını artırmak için zaman yönetimi ve planlama toplantısı.',
             'remove'          => 'Kaldır',

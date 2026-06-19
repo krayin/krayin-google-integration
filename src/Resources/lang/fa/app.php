@@ -28,7 +28,8 @@ return [
 
     'meet' => [
         'index' => [
-            'link-shared'     => '──────────<br/><br/>شما به جلسه گوگل میت دعوت شده‌اید.<br/><br/>پیوستن به جلسه گوگل میت: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'link-shared'       => '──────────<br/><br/>شما به جلسه گوگل میت دعوت شده‌اید.<br/><br/>پیوستن به جلسه گوگل میت: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'account-not-found' => 'هیچ حساب گوگل متصلی یافت نشد.',
             'title'           => 'گوگل میت',
             'info'            => 'مدیریت زمان و جلسه گوگل برای افزایش سرعت کار',
             'remove'          => 'حذف',

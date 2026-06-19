@@ -28,7 +28,8 @@ return [
 
     'meet' => [
         'index' => [
-            'link-shared'     => '──────────<br/><br/>تم دعوتك للانضمام إلى اجتماع جوجل.<br/><br/>انضم إلى اجتماع جوجل: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'link-shared'       => '──────────<br/><br/>تم دعوتك للانضمام إلى اجتماع جوجل.<br/><br/>انضم إلى اجتماع جوجل: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'account-not-found' => 'لم يتم العثور على حساب جوجل متصل.',
             'title'           => 'اجتماع جوجل',
             'info'            => 'اجتماع لإدارة الوقت والجدولة من جوجل لزيادة سرعة العمل',
             'remove'          => 'إزالة',

@@ -2,6 +2,10 @@
 
 This changelog consists of the bug & security fixes and new features being included in the releases listed below.
 
+## **v2.2.3 (15th of June 2026)**
+
+* [compatible] Compatible to krayin v2.2.3.
+
 ## **v2.0.1 (27th of September 2024)**
 
 * #54 [fixed] - Fix publishable issues.

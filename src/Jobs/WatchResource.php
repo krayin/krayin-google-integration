@@ -2,6 +2,8 @@
 
 namespace Webkul\Google\Jobs;
 
+use Illuminate\Support\Carbon;
+
 abstract class WatchResource
 {
     protected $synchronizable;

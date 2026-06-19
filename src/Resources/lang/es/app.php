@@ -28,7 +28,8 @@ return [
 
     'meet'=> [
         'index'=> [
-            'link-shared'   => '──────────<br/><br/>Estás invitado a unirte a la reunión de Google Meet.<br/><br/>Únete a la reunión de Google Meet: <a href=“:link” target=“_blank” class=“text-brandColor”>:link</a><br/><br/>──────────',
+            'link-shared'     => '──────────<br/><br/>Estás invitado a unirte a la reunión de Google Meet.<br/><br/>Únete a la reunión de Google Meet: <a href=“:link” target=“_blank” class=“text-brandColor”>:link</a><br/><br/>──────────',
+            'account-not-found'=> 'No se encontró ninguna cuenta de Google conectada.',
             'title'         => 'Google Meet',
             'info'          => 'Reunión de gestión del tiempo y programación de Google para mejorar la velocidad de trabajo',
             'remove'        => 'Eliminar',

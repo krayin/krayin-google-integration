@@ -31,7 +31,11 @@ class Activity
             return;
         }
 
-        $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
+        if (! $user = auth()->user()) {
+            return;
+        }
+
+        $account = $this->accountRepository->findOneByField('user_id', $user->id);
 
         if (! $account) {
             return;
@@ -64,8 +68,8 @@ class Activity
         foreach ($activity->participants as $participant) {
             if ($participant->user) {
                 $eventData['attendees'][] = ['email' => $participant->user->email, 'display_name' => $participant->user->name];
-            } else {
-                $eventData['attendees'][] = ['email' => $participant->person->emails[0]['value'], 'display_name' => $participant->person->name];
+            } elseif ($email = $participant->person?->emails[0]['value'] ?? null) {
+                $eventData['attendees'][] = ['email' => $email, 'display_name' => $participant->person->name];
             }
         }
 
@@ -92,7 +96,11 @@ class Activity
             return;
         }
 
-        $account = $this->accountRepository->findOneByField('user_id', auth()->user()->id);
+        if (! $user = auth()->user()) {
+            return;
+        }
+
+        $account = $this->accountRepository->findOneByField('user_id', $user->id);
 
         if (! $account) {
             return;
@@ -129,8 +137,8 @@ class Activity
         foreach ($activity->participants as $participant) {
             if ($participant->user) {
                 $eventData['attendees'][] = ['email' => $participant->user->email, 'display_name' => $participant->user->name];
-            } else {
-                $eventData['attendees'][] = ['email' => $participant->person->emails[0]['value'], 'display_name' => $participant->person->name];
+            } elseif ($email = $participant->person?->emails[0]['value'] ?? null) {
+                $eventData['attendees'][] = ['email' => $email, 'display_name' => $participant->person->name];
             }
         }
 

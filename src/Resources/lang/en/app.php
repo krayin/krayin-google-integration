@@ -28,7 +28,8 @@ return [
 
     'meet' => [
         'index' => [
-            'link-shared'     => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'link-shared'       => '──────────<br/><br/>You are invited to join Google Meet meeting.<br/><br/>Join the Google Meet meeting: <a href=":link" target="_blank" class="text-brandColor">:link</a><br/><br/>──────────',
+            'account-not-found' => 'No connected Google account was found.',
             'title'           => 'Google Meet',
             'info'            => 'Google time management and scheduling meet for enhancing work speed',
             'remove'          => 'Remove',

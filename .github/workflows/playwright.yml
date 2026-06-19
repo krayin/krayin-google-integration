@@ -1,0 +1,153 @@
+name: Playwright Tests
+
+# CI for the STANDALONE krayin/krayin-google-integration repository.
+#
+# A package repo has no host CRM, so we bootstrap a fresh Krayin CRM app,
+# drop THIS checkout into packages/Webkul/GoogleIntegration (the layout the
+# e2e suite's global-setup.ts expects), then install, serve and run the
+# package's Playwright tests against it.
+
+on:
+  push:
+    branches: [master, main, '2.2', '2.x']
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_COLOR: 1
+  # Branch of krayin/laravel-crm to bootstrap the host app from.
+  KRAYIN_BRANCH: master
+  PKG_PATH: app/packages/Webkul/GoogleIntegration
+  E2E_DIR: app/packages/Webkul/GoogleIntegration/tests/e2e-pw
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.3']
+        node-version: ['22.13.1']
+
+    name: Playwright Tests
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: krayin
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+      # 1. Check out THIS package into ./package
+      - name: Checkout package
+        uses: actions/checkout@v4
+        with:
+          path: package
+
+      # 2. Bootstrap the host Krayin CRM app into ./app
+      - name: Checkout Krayin CRM (host app)
+        uses: actions/checkout@v4
+        with:
+          repository: krayin/laravel-crm
+          ref: ${{ env.KRAYIN_BRANCH }}
+          path: app
+
+      # 3. Replace the app's bundled copy of the package with this checkout
+      - name: Inject package into the host app
+        run: |
+          rm -rf "${{ env.PKG_PATH }}"
+          mkdir -p "$(dirname "${{ env.PKG_PATH }}")"
+          rsync -a --delete \
+            --exclude '.git' \
+            --exclude 'node_modules' \
+            --exclude 'tests/e2e-pw/node_modules' \
+            package/ "${{ env.PKG_PATH }}/"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: curl, fileinfo, gd, intl, mbstring, openssl, pdo, pdo_mysql, tokenizer, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Node.js Dependencies
+        run: npm install
+        working-directory: ${{ env.E2E_DIR }}
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+        working-directory: ${{ env.E2E_DIR }}
+
+      - name: Setting Environment
+        working-directory: app
+        run: |
+          cp .env.example .env
+          sed -i "s|^\(DB_HOST=\s*\).*$|\1127.0.0.1|" .env
+          sed -i "s|^\(DB_PORT=\s*\).*$|\1${{ job.services.mysql.ports['3306'] }}|" .env
+          sed -i "s|^\(DB_DATABASE=\s*\).*$|\1krayin|" .env
+          sed -i "s|^\(DB_USERNAME=\s*\).*$|\1root|" .env
+          sed -i "s|^\(DB_PASSWORD=\s*\).*$|\1root|" .env
+          sed -i "s|^\(APP_DEBUG=\s*\).*$|\1true|" .env
+          sed -i "s|^\(APP_URL=\s*\).*$|\1http://127.0.0.1:8000|" .env
+
+      # The host app (krayin/laravel-crm) does not require this package by
+      # default, so we pull in the injected path copy explicitly. The path
+      # repo (packages/*/*, symlink) resolves it to dev-master, which needs
+      # the dev stability flag.
+      - name: Install Composer Dependencies (with injected package)
+        working-directory: app
+        run: |
+          composer config minimum-stability dev
+          composer config prefer-stable true
+          composer require krayin/krayin-google-integration:@dev --no-interaction --prefer-dist --no-progress
+
+      - name: Running Krayin Installer
+        working-directory: app
+        run: php artisan krayin-crm:install --skip-env-check --skip-admin-creation
+
+      # The package's Blade views @vite the published `public/google` build.
+      # krayin-crm:install does NOT publish this package's assets, so publish
+      # them explicitly or the connected views 500 with "Vite manifest not found".
+      - name: Publish Google Integration assets
+        working-directory: app
+        run: php artisan vendor:publish --provider="Webkul\Google\Providers\GoogleServiceProvider" --tag=public --force
+
+      - name: Clear Laravel Caches
+        working-directory: app
+        run: php artisan optimize:clear
+
+      - name: Start Laravel server
+        working-directory: app
+        run: |
+          php artisan serve --host=0.0.0.0 --port=8000 > server.log 2>&1 &
+          echo "Waiting for server to start..."
+          timeout 30 bash -c 'until curl -s http://127.0.0.1:8000 > /dev/null; do sleep 1; done'
+
+      - name: Run Playwright Tests
+        working-directory: ${{ env.E2E_DIR }}
+        env:
+          APP_URL: 'http://127.0.0.1:8000'
+        run: npx playwright test --reporter=list
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: |
+            ${{ env.E2E_DIR }}/playwright-report
+            ${{ env.E2E_DIR }}/test-results
+          retention-days: 3

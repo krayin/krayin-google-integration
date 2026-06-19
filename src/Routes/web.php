@@ -24,5 +24,5 @@ Route::group([
         Route::post('create-link', [MeetController::class, 'createLink'])->name('admin.google.meet.create_link');
     });
 
-    Route::post('webhook', [WebhookController::class])->name('admin.google.webhook');
+    Route::post('webhook', WebhookController::class)->name('admin.google.webhook');
 });
